@@ -2,96 +2,90 @@
 
 [![skills.sh](https://skills.sh/b/fielc92/product0)](https://skills.sh/fielc92/product0)
 
-Product0 is a strict pre-implementation product-direction workflow for AI coding agents.
+Product0 is a professional pre-implementation product-direction workflow for AI coding agents.
 
-It turns a vague product request into one approved developer brief, then stops. A developer can later use that brief to begin code-focused technical brainstorming.
+It inspects the running project, explains the lay of the land, shapes and challenges an opinionated product direction, writes one concise developer brief after approval, and stops before technical design or development.
 
 ```text
 Product request
-  -> intent
-  -> product requirements
-  -> product experience
-  -> product scope slices
-  -> developer brief
+  -> repository orientation
+  -> lay of the land
+  -> professional product discovery
+  -> challenged direction proposal
+  -> user approval
+  -> one atomic developer brief
+  -> readiness review
   -> HANDOFF_READY
   -> STOP
 
 Separate developer action
   -> product0-using-brief
-  -> technical brainstorming
+  -> code-focused technical brainstorming
   -> implementation planning
   -> development
 ```
 
-Product0 is inspired by the composable, state-machine discipline of [Superpowers](https://github.com/obra/superpowers), while owning an earlier part of the lifecycle.
+Product0 borrows Superpowers' strict state-machine discipline while owning the earlier product-direction layer.
 
-## What Product0 does
+## What changed in v0.2
 
-- Clarifies the problem, actor, outcome, and success evidence.
-- Defines observable product behavior and business rules.
-- Designs journeys, states, interactions, and product-visible failure behavior.
-- Separates coherent product outcomes without producing engineering tickets.
-- Produces implementation-neutral directions for developer brainstorming.
-- Reviews the brief for readiness.
-- Keeps one revisable conversation-memory file per session when asked.
+- No brief is created before product direction is approved.
+- Repository orientation happens before product questions.
+- Product0 explains the existing landscape and makes a recommendation.
+- Questions are consequential decision packets, not checklist drip-feeds.
+- Delegated low-risk choices are decided by Product0.
+- A separate critic challenges the direction before approval.
+- Briefs are adaptive, evidence-aware, concise, and type-specific.
+- The original v0.1 stages remain only as compatibility aliases.
 
-## What Product0 never does
-
-Product0 does not automatically inspect code architecture, create implementation plans, make branches, dispatch coding agents, or write code. Its successful terminal state is `handoff-ready`.
-
-## Skill set
+## Active skill set
 
 | Skill | Role |
 |---|---|
-| `product0` | Public entry point and state-machine governor |
-| `product0-framing-intent` | Establishes the approved product problem and outcome |
-| `product0-defining-requirements` | Defines observable product behavior and boundaries |
-| `product0-designing-experience` | Resolves journeys, states, interactions, and product trade-offs |
-| `product0-slicing-scope` | Creates outcome-oriented product slices |
-| `product0-preparing-brief` | Compiles the developer-facing handoff |
-| `product0-reviewing-brief` | Applies the final readiness gate |
-| `product0-using-brief` | Developer-initiated bridge into technical brainstorming |
-| `product0-session-memory` | Maintains one structured memory file per conversation session |
+| `product0` | Single public governor |
+| `product0-orienting-context` | Inspects the repository and presents the lay of the land |
+| `product0-shaping-direction` | Develops the professional product direction |
+| `product0-challenging-direction` | Independently challenges quality and assumptions |
+| `product0-writing-brief` | Writes one approved, adaptive developer brief |
+| `product0-reviewing-brief` | Applies the final handoff-readiness gate |
+| `product0-using-brief` | Developer-side bridge into technical brainstorming |
+| `product0-session-memory` | One explicit memory file per conversation session |
 
-Users normally invoke only `product0`. The other skills compose behind that interface and are required dependencies, so install the complete set.
+The five v0.1 stage names remain as deprecated compatibility aliases. New workflows must not invoke them.
 
 ## Install with skills.sh
-
-From a published Git repository:
 
 ```bash
 npx skills add fielc92/product0 --skill '*'
 ```
 
-For Codex, Claude Code, and OpenCode specifically:
+For Codex, Claude Code, and OpenCode:
 
 ```bash
 npx skills add fielc92/product0 --skill '*' \
   -a codex -a claude-code -a opencode
 ```
 
-From a local checkout:
-
-```bash
-npx skills add ./product0-skills --skill '*'
-```
-
-The repository uses the open Agent Skills format: one folder per skill with a `SKILL.md` containing portable YAML metadata and Markdown instructions. It intentionally avoids harness-specific tool names.
+The core skills use portable Agent Skills metadata and avoid harness-specific tool names.
 
 ## Invoke
 
-Natural language works across compatible agents:
-
 ```text
 Use Product0 for this:
-Customers should be notified when a debit order fails.
+We need a landing page for the app.
 ```
 
-Agents that expose explicit skill invocation may also allow forms such as `$product0`, `/product0`, or selection through their skill UI.
+Expected opening behavior:
+
+1. inspect the project;
+2. present the lay of the land and recommended framing;
+3. ask only consequential product decisions.
+
+Product0 does not create a brief at invocation time.
 
 ## Project outputs
 
-Product0 writes to the running project's documentation tree:
+Artifacts are created only when needed:
 
 ```text
 docs/product0/
@@ -103,47 +97,23 @@ docs/product0/
     YYYY-MM-DD-<topic>-product-decision-request.md
 ```
 
-There is one living brief per initiative. Product0 revises it in place through every stage rather than creating separate intent, requirements, design, and scope documents.
+### Briefs
 
-## Session memory
+A brief is written only after the complete direction passes challenge and the user approves it. Initial creation is one coherent write with `status: handoff-draft`.
 
-During Product0, phrases such as these activate `product0-session-memory`:
+### Session memory
 
-```text
-Remember this.
-Note that consent is opt-in.
-Capture this decision.
-Save this for later.
-Don't forget the compliance constraint.
-```
-
-The first write creates one dated session file. Every later memory write in the same conversation updates that file. A question such as “Do you remember what we decided?” reads the file without creating or changing one.
+Phrases such as “remember this,” “capture this decision,” and “save this” invoke session memory. The first explicit write creates one session file; later writes update it. Recall questions are read-only.
 
 ## Developer handoff
 
-After the final review and user approval, Product0 reports:
+After final review and approval, the brief becomes:
 
 ```text
 status: handoff-ready
 ```
 
-Product0 stops. A developer later invokes `product0-using-brief`, which:
-
-1. verifies the brief and revision;
-2. acknowledges fixed product direction and open technical questions;
-3. inspects the codebase;
-4. invokes an installed technical `brainstorming` skill, including Superpowers brainstorming when available;
-5. escalates missing product decisions instead of inventing them.
-
-## Portability contract
-
-The skills use only the standard fields `name`, `description`, `license`, `compatibility`, and string-valued `metadata`. They do not require shell commands, network access, model-specific APIs, or pre-approved tool names. The host needs only:
-
-- Agent Skills-compatible discovery and loading;
-- access to read and write project files;
-- a way to ask the user questions.
-
-See [`docs/architecture.md`](docs/architecture.md) for the workflow and [`docs/authoring.md`](docs/authoring.md) for validation and eval guidance.
+Product0 stops. A developer later invokes `product0-using-brief`, acknowledges fixed direction, recommendations, assumptions, non-goals, and technical questions, then begins technical brainstorming.
 
 ## Validate
 
@@ -152,6 +122,8 @@ python scripts/validate_skillset.py
 python -m unittest discover -s tests -v
 ```
 
+Behavioral eval fixtures live beside each skill. The landing-page regression scenario is documented in `tests/landing-page-regression.md`.
+
 ## License
 
-MIT. See [`LICENSE`](LICENSE).
+MIT.

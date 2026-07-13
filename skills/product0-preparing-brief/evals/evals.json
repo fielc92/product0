@@ -2,14 +2,9 @@
   "skill_name": "product0-preparing-brief",
   "evals": [
     {
-      "id": 1,
-      "prompt": "Compile the approved Product0 work for the developer.",
-      "expected_output": "The agent updates the existing canonical brief in place, clearly separates fixed product direction, constraints, non-goals, technical latitude, open technical questions, and evaluation criteria, then marks it handoff-draft."
-    },
-    {
-      "id": 2,
-      "prompt": "Create an implementation plan too.",
-      "expected_output": "The agent declines to create engineering tasks or an implementation plan and preserves Product0's handoff boundary."
+      "id": "compatibility-routing",
+      "prompt": "Invoke product0-preparing-brief in an existing installation.",
+      "expected_output": "The agent treats this as a deprecated compatibility alias and routes to product0-writing-brief. It does not run the old staged interview or write a brief."
     }
   ]
 }

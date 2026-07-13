@@ -1,61 +1,84 @@
-# Product0 handoff-readiness rubric
+# Product0 v0.2 handoff-readiness rubric
 
-## 1. Intent integrity
+## 1. Executive value
 
-- The brief still solves the approved problem for the approved actor.
-- Success evidence measures the intended outcome.
-- Requirements and design have not drifted toward a different problem.
+- The brief makes a clear product recommendation.
+- The recommendation is materially more useful than the raw request.
+- The chosen direction and meaningful trade-offs are understandable.
 
-## 2. Requirements
+## 2. Evidence and provenance
 
-- Important behavior is observable.
-- Business rules and permissions are explicit.
-- Scope and non-goals are compatible.
-- Consequential delay, duplicate, failure, cancellation, and recovery behavior is defined where relevant.
-- Constraints have a source or rationale.
-- No blocking product decision remains.
+- Relevant repository evidence is cited when access exists.
+- User-confirmed decisions are identifiable.
+- Product0 recommendations are not presented as user facts.
+- Working assumptions are reversible and explicit.
+- Provisional commercial, legal, timing, or capability statements remain provisional.
+- Conflicting or stale evidence is acknowledged.
 
-## 3. Product design
+## 3. Type-specific depth
 
-- The primary journey is coherent.
-- Meaningful states and transitions are described from the actor's perspective.
-- Information, controls, and administration are sufficient.
-- Approved product trade-offs are recorded.
-- Technical architecture is not prescribed accidentally.
+### Marketing or conversion surface
 
-## 4. Product slices
+Requires:
 
-- Every in-scope requirement maps to a slice or is explicitly cross-cutting.
-- Slices are coherent outcomes rather than engineering layers.
-- Included, excluded, and dependent behavior is clear.
-- Acceptance evidence exists.
+- target buyer and buying situation;
+- surface job and desired perception;
+- positioning and value proposition;
+- message hierarchy and differentiation;
+- proof and trust;
+- primary objections;
+- product demonstration or visual direction;
+- conversion approach;
+- measurement and claims guardrails.
 
-## 5. Developer directions
+### Product workflow
 
-- Fixed product decisions are unmistakable.
-- Non-goals protect against scope expansion.
-- Technical latitude gives the developer room to solve the code problem.
-- Open technical questions are precise.
-- Evaluation criteria are ordered and derived from product direction.
-- The required technical-design output is clear.
+Requires:
 
-## 6. Consistency and usability
+- actors, trigger, goal, and end state;
+- meaningful lifecycle;
+- business rules and authority;
+- permissions;
+- consequential exceptions and recovery;
+- operator or support implications where relevant.
 
-- No placeholders remain.
-- Terms are used consistently.
-- References resolve or are clearly identified.
-- Current revision approvals are valid.
-- A developer can understand the brief without access to the chat transcript.
+### Platform capability
 
-## Blocking examples
+Requires:
 
-- Undefined permissions.
-- Contradictory acceptance examples.
-- No product-visible behavior for a permanent failure that users must act on.
-- A business rule hidden under “developer discretion.”
-- Product slices that omit an approved requirement.
-- A fixed technology choice with no documented external constraint.
+- consumer and job;
+- capability promise and limits;
+- configuration/customization boundary;
+- ownership and control;
+- guarantees;
+- extension and adoption implications.
 
-## Non-blocking examples
+Use equivalent depth from the selected lens for other types.
 
-- Choice of queue, framework, schema, API shape, module boundary, test framework, retry algorithm, or migration mechanism, unless an approved product constraint genuinely fixes it.
+## 4. Proportionality and signal
+
+- The brief does not repeat the same proposition.
+- Routine implementation defaults do not dominate.
+- Requirement IDs are used only when traceability adds value.
+- Product slices exist only for meaningful multiple outcomes or phases.
+- No empty headings, pending markers, raw transcript, or approval log clutter.
+- Length is proportionate to decisions.
+
+## 5. Product/technical boundary
+
+- Product decisions and non-goals are clear.
+- Architecture, data model, API, queue, framework, module, and test choices remain open.
+- Technical brainstorming receives precise questions.
+- No unresolved material product rule is disguised as technical latitude.
+
+## 6. Independent usability
+
+A developer unfamiliar with the conversation can explain:
+
+- what problem is being solved;
+- for whom and in what situation;
+- the recommended product direction;
+- what must remain true;
+- what is recommended versus assumed;
+- what is excluded;
+- what technical design must solve next.

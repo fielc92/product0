@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate Product0's portable Agent Skills repository."""
+# Validate Product0's portable Agent Skills repository.
 
 from __future__ import annotations
 
@@ -12,17 +12,26 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS_ROOT = ROOT / "skills"
 
-EXPECTED_SKILLS = {
+ACTIVE_SKILLS = {
     "product0",
+    "product0-orienting-context",
+    "product0-shaping-direction",
+    "product0-challenging-direction",
+    "product0-writing-brief",
+    "product0-reviewing-brief",
+    "product0-using-brief",
+    "product0-session-memory",
+}
+
+COMPATIBILITY_SKILLS = {
     "product0-framing-intent",
     "product0-defining-requirements",
     "product0-designing-experience",
     "product0-slicing-scope",
     "product0-preparing-brief",
-    "product0-reviewing-brief",
-    "product0-using-brief",
-    "product0-session-memory",
 }
+
+EXPECTED_SKILLS = ACTIVE_SKILLS | COMPATIBILITY_SKILLS
 
 ALLOWED_FRONTMATTER = {
     "name",
@@ -106,16 +115,12 @@ def validate() -> tuple[list[str], list[str]]:
 
         docs[name] = doc
         meta = doc.metadata
-
         unknown_fields = set(meta) - ALLOWED_FRONTMATTER
         if unknown_fields:
-            errors.append(
-                f"{name}: non-portable frontmatter fields: {', '.join(sorted(unknown_fields))}"
-            )
+            errors.append(f"{name}: non-portable frontmatter fields: {', '.join(sorted(unknown_fields))}")
 
         declared_name = meta.get("name", "")
         description = meta.get("description", "")
-
         if declared_name != name:
             errors.append(f"{name}: frontmatter name {declared_name!r} must match directory")
         if not NAME_RE.fullmatch(declared_name):
@@ -127,9 +132,9 @@ def validate() -> tuple[list[str], list[str]]:
         if not description.startswith("Use when"):
             warnings.append(f"{name}: description should start with 'Use when'")
         if not meta.get("license"):
-            errors.append(f"{name}: license is required by Product0 repository policy")
+            errors.append(f"{name}: license is required")
         if not meta.get("compatibility"):
-            errors.append(f"{name}: compatibility is required by Product0 repository policy")
+            errors.append(f"{name}: compatibility is required")
         if not doc.body.strip():
             errors.append(f"{name}: empty skill body")
 
@@ -137,7 +142,6 @@ def validate() -> tuple[list[str], list[str]]:
         if word_count > 2200:
             warnings.append(f"{name}: long SKILL.md body ({word_count} words)")
 
-        # Supporting-file references must resolve inside the skill directory.
         for rel in sorted(set(REFERENCE_RE.findall(doc.body))):
             target = doc.directory / rel
             if not target.is_file():
@@ -146,49 +150,73 @@ def validate() -> tuple[list[str], list[str]]:
         eval_path = doc.directory / "evals" / "evals.json"
         if not eval_path.is_file():
             errors.append(f"{name}: missing evals/evals.json")
-        else:
-            try:
-                payload = json.loads(eval_path.read_text(encoding="utf-8"))
-            except (OSError, json.JSONDecodeError) as exc:
-                errors.append(f"{name}: invalid eval JSON: {exc}")
-            else:
-                if payload.get("skill_name") != name:
-                    errors.append(f"{name}: eval skill_name must match directory")
-                cases = payload.get("evals")
-                if not isinstance(cases, list) or not cases:
-                    errors.append(f"{name}: evals must be a non-empty list")
-                else:
-                    ids: set[object] = set()
-                    for index, case in enumerate(cases, start=1):
-                        if not isinstance(case, dict):
-                            errors.append(f"{name}: eval {index} must be an object")
-                            continue
-                        case_id = case.get("id")
-                        if case_id in ids:
-                            errors.append(f"{name}: duplicate eval id {case_id!r}")
-                        ids.add(case_id)
-                        for field in ("prompt", "expected_output"):
-                            if not isinstance(case.get(field), str) or not case[field].strip():
-                                errors.append(f"{name}: eval {case_id!r} missing {field}")
+            continue
 
-    # Contract-level assertions.
+        try:
+            payload = json.loads(eval_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"{name}: invalid eval JSON: {exc}")
+            continue
+
+        if payload.get("skill_name") != name:
+            errors.append(f"{name}: eval skill_name must match directory")
+        cases = payload.get("evals")
+        if not isinstance(cases, list) or not cases:
+            errors.append(f"{name}: evals must be a non-empty list")
+            continue
+
+        ids: set[object] = set()
+        for index, case in enumerate(cases, start=1):
+            if not isinstance(case, dict):
+                errors.append(f"{name}: eval {index} must be an object")
+                continue
+            case_id = case.get("id")
+            if case_id in ids:
+                errors.append(f"{name}: duplicate eval id {case_id!r}")
+            ids.add(case_id)
+            for field in ("prompt", "expected_output"):
+                if not isinstance(case.get(field), str) or not case[field].strip():
+                    errors.append(f"{name}: eval {case_id!r} missing {field}")
+
     required_fragments = {
         "product0": [
             "PRODUCT0 MUST NOT START TECHNICAL DESIGN OR IMPLEMENTATION",
-            "docs/product0/briefs/",
-            "product0-session-memory",
+            "NO BRIEF BEFORE PRODUCT DIRECTION IS APPROVED",
+            "NO QUESTION THAT THE REPOSITORY CAN ANSWER",
+            "product0-orienting-context",
+            "product0-shaping-direction",
+            "product0-challenging-direction",
+            "product0-writing-brief",
             "handoff-ready",
-            "Do not invoke `product0-using-brief`",
         ],
-        "product0-framing-intent": ["NO REQUIREMENTS, PRODUCT DESIGN, OR TECHNICAL DESIGN"],
-        "product0-defining-requirements": ["REQUIREMENTS DEFINE OBSERVABLE PRODUCT BEHAVIOR"],
-        "product0-designing-experience": ["It does not cover:"],
-        "product0-slicing-scope": ["PRODUCT SLICES ARE NOT ENGINEERING TASKS"],
-        "product0-preparing-brief": ["COMPILE DIRECTIONS; DO NOT CREATE AN IMPLEMENTATION PLAN"],
+        "product0-orienting-context": [
+            "ORIENT BEFORE ASKING PRODUCT QUESTIONS",
+            "## Lay of the land",
+            "DO NOT WRITE A PRODUCT0 BRIEF DURING ORIENTATION",
+        ],
+        "product0-shaping-direction": [
+            "DO NOT WRITE THE BRIEF DURING DISCOVERY",
+            "Decision packets",
+            "Delegated authority",
+        ],
+        "product0-challenging-direction": ["DIRECTION_READY", "REVISE"],
+        "product0-writing-brief": [
+            "ONE APPROVED DIRECTION = ONE COHERENT BRIEF WRITE",
+            "docs/product0/briefs/",
+        ],
         "product0-reviewing-brief": ["HANDOFF_READY", "NOT_READY"],
-        "product0-using-brief": ["DO NOT USE A BRIEF UNLESS status: handoff-ready", "Product Decision Request"],
-        "product0-session-memory": ["ONE CONVERSATION SESSION = ONE SESSION FILE", "Read only"],
+        "product0-using-brief": [
+            "DO NOT USE A BRIEF UNLESS status: handoff-ready",
+            "Product Decision Request",
+        ],
+        "product0-session-memory": [
+            "ONE CONVERSATION SESSION = ONE SESSION FILE",
+            "NO MEMORY WRITE WITHOUT AN EXPLICIT WRITE INTENT",
+        ],
     }
+
+    for name in COMPATIBILITY_SKILLS:
+        required_fragments[name] = ["DEPRECATED COMPATIBILITY ALIAS"]
 
     for name, fragments in required_fragments.items():
         doc = docs.get(name)
@@ -198,16 +226,27 @@ def validate() -> tuple[list[str], list[str]]:
             if fragment not in doc.text:
                 errors.append(f"{name}: missing contract fragment {fragment!r}")
 
-    # Runtime skills must stay instruction-only.
+    orchestrator = docs.get("product0")
+    if orchestrator and "Ask one blocking question at a time" in orchestrator.text:
+        errors.append("product0: v0.1 one-question interview instruction must be removed")
+
+    template = ROOT / "skills" / "product0-writing-brief" / "assets" / "product-brief-template.md"
+    if template.is_file():
+        text = template.read_text(encoding="utf-8")
+        for forbidden in ("_Status: pending_", "status: captured", "#### R-01"):
+            if forbidden in text:
+                errors.append(f"product0-writing-brief: adaptive template contains {forbidden!r}")
+
     for name in actual_skills:
         scripts_dir = SKILLS_ROOT / name / "scripts"
         if scripts_dir.exists() and any(p.is_file() for p in scripts_dir.rglob("*")):
-            errors.append(f"{name}: runtime scripts are not permitted in Product0 v1")
+            errors.append(f"{name}: runtime scripts are not permitted")
 
     for required_file in (
         ROOT / "README.md",
         ROOT / "LICENSE",
         ROOT / "tests" / "baseline-failures.md",
+        ROOT / "tests" / "landing-page-regression.md",
     ):
         if not required_file.is_file():
             errors.append(f"Missing repository file: {required_file.relative_to(ROOT)}")
@@ -228,7 +267,8 @@ def main() -> int:
         return 1
 
     print(
-        f"Validated {len(EXPECTED_SKILLS)} Product0 skills "
+        f"Validated {len(ACTIVE_SKILLS)} active and "
+        f"{len(COMPATIBILITY_SKILLS)} compatibility Product0 skills "
         f"with {len(warnings)} warning(s)."
     )
     return 0

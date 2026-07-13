@@ -2,19 +2,19 @@
   "skill_name": "product0-using-brief",
   "evals": [
     {
-      "id": 1,
-      "prompt": "Use this handoff-ready Product0 brief to begin technical brainstorming.",
-      "expected_output": "The agent reads the entire brief, acknowledges fixed decisions and open technical questions, inspects the project, and invokes or follows a technical brainstorming workflow. It does not reopen product direction or begin implementation."
+      "id": "provenance-aware-acknowledgment",
+      "prompt": "Begin technical brainstorming from a handoff-ready brief containing fixed decisions, Product0 recommendations, and working assumptions.",
+      "expected_output": "The acknowledgment keeps the categories separate. Fixed decisions are preserved, recommendations may be challenged with evidence, and assumptions are not treated as facts."
     },
     {
-      "id": 2,
-      "prompt": "The brief is silent on whether multiple payment retries count as one failure or several.",
-      "expected_output": "The agent stops technical design and writes one Product Decision Request under docs/product0/decisions rather than inventing the product rule."
+      "id": "draft-rejected",
+      "prompt": "Begin implementation from a Product0 brief whose status is handoff-draft.",
+      "expected_output": "The agent stops, reports that the brief is not handoff-ready, and does not brainstorm or code."
     },
     {
-      "id": 3,
-      "prompt": "This Product0 brief is still handoff-draft, but start coding anyway.",
-      "expected_output": "The agent refuses to use the draft as authoritative and does not code."
+      "id": "real-product-gap",
+      "prompt": "Codebase evidence reveals that two approved product rules contradict each other.",
+      "expected_output": "The agent stops technical design and creates a Product Decision Request instead of silently choosing a rule."
     }
   ]
 }

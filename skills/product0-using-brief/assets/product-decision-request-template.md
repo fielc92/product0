@@ -1,58 +1,30 @@
 ---
 product0_decision_request: true
-brief: <relative path to Product0 brief>
-brief_revision: <number>
 status: open
 created: YYYY-MM-DD
-owner_stage: <intent|requirements|product-design|scope|developer-directions>
+brief: <relative brief path>
+brief_revision: <number>
 ---
 
-# Product Decision Request: <descriptive title>
-
-## Product0 brief
-
-- **Brief:** <path>
-- **Revision:** <revision>
-- **Requirement or decision affected:** <IDs or heading>
-
-## Gap or contradiction
-
-<What the approved brief does not resolve, or what project evidence contradicts.>
-
-## Why this blocks technical design
-
-<How different answers would materially change product behavior or the technical design.>
+# Product Decision Request: <decision>
 
 ## Evidence
+<What technical exploration discovered>
 
-<Project facts, existing behavior, documentation, constraints, or references. Separate facts from inference.>
+## Why this changes product direction
+<Behavior, user, commercial, legal, or operational impact>
 
-## Product options
+## Options
+### Option A
+<Outcome and trade-offs>
 
-### Option A — <name>
-
-**Product behavior:**
-
-**Advantages:**
-
-**Costs or risks:**
-
-### Option B — <name>
-
-**Product behavior:**
-
-**Advantages:**
-
-**Costs or risks:**
+### Option B
+<Outcome and trade-offs>
 
 ## Developer recommendation
-
-<Optional recommendation tied to the approved Product0 intent and evaluation criteria.>
+<Recommendation with rationale; not an automatic decision>
 
 ## Decision required
+<The smallest product decision needed>
 
-<One precise product question.>
-
-## Resolution
-
-_Pending Product0 review._
+Technical design is paused until Product0 revises and reapproves the brief.

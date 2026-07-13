@@ -1,14 +1,16 @@
 # Contributing
 
-1. Add or update a realistic eval before changing skill behavior.
-2. Keep Product0 pre-implementation. Do not add automatic implementation transitions.
-3. Preserve the one-brief-per-initiative and one-memory-file-per-session invariants.
-4. Keep `SKILL.md` files portable across Agent Skills-compatible hosts.
-5. Run:
+1. Add or update a realistic failing eval before changing skill behavior.
+2. Keep Product0 pre-implementation.
+3. Preserve the rule that no Product0 brief is created before direction approval.
+4. Preserve one explicit memory file per conversation session.
+5. Keep core `SKILL.md` files portable across Agent Skills-compatible hosts.
+6. Use repository evidence and type-specific product judgment rather than generic checklist completion.
+7. Run:
 
 ```bash
 python scripts/validate_skillset.py
 python -m unittest discover -s tests -v
 ```
 
-6. Describe the behavior change and the eval scenario that justifies it.
+8. Describe the baseline failure, the intended behavioral change, and any live-model evals performed.

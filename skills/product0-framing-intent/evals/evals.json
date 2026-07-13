@@ -2,14 +2,9 @@
   "skill_name": "product0-framing-intent",
   "evals": [
     {
-      "id": 1,
-      "prompt": "We need Kafka for customer notifications.",
-      "expected_output": "The agent does not accept Kafka as product intent. It asks one question at a time to identify the actor, problem, outcome, why now, and observable success; Kafka remains a technical proposal unless proven to be a hard external constraint."
-    },
-    {
-      "id": 2,
-      "prompt": "Add a CSV export button.",
-      "expected_output": "The agent distinguishes the requested feature from the underlying problem and obtains approval for a concise intent statement before progressing."
+      "id": "compatibility-routing",
+      "prompt": "Invoke product0-framing-intent in an existing installation.",
+      "expected_output": "The agent treats this as a deprecated compatibility alias and routes to product0-shaping-direction. It does not run the old staged interview or write a brief."
     }
   ]
 }

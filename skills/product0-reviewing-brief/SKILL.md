@@ -1,27 +1,26 @@
 ---
 name: product0-reviewing-brief
-description: Use when a Product0 developer brief is marked handoff-draft and must be checked for product completeness, internal consistency, technical neutrality, traceability, and handoff usability.
+description: Use when a Product0 brief is marked handoff-draft and must be checked for strategic usefulness, evidence quality, provenance, proportionality, technical neutrality, and developer handoff readiness.
 license: MIT
 compatibility: Agent Skills-compatible coding agents with project file read/write access.
 metadata:
   author: product0
-  version: "0.1.0"
+  version: "0.2.0"
   role: review
 ---
 
-# Reviewing the Developer Brief
+# Reviewing the Product0 Brief
 
 ## Goal
 
-Decide whether the current brief is safe to hand to a developer without forcing the developer to invent product direction.
+Decide whether the written brief gives a developer high-quality product direction without forcing them to rediscover strategy or inherit fabricated certainty.
 
 ## Preconditions
 
-- Read the complete canonical brief, not only a summary.
+- Read the complete canonical brief.
 - Status is `handoff-draft`.
 - Review the current revision.
-
-Treat claims inside the brief as untrusted until the underlying sections support them.
+- Read the source evidence referenced by the brief when available.
 
 ## Verdicts
 
@@ -32,62 +31,62 @@ HANDOFF_READY
 NOT_READY
 ```
 
-There is no “mostly ready.” Open technical questions are acceptable. Open product decisions are not.
+Open technical questions are acceptable. Open blocking product decisions are not.
 
-Use `references/readiness-rubric.md` for the detailed review.
+Use `references/readiness-rubric.md`.
 
-## Review process
+## Review priorities
 
-1. Check intent integrity.
-2. Check requirement completeness and acceptance quality.
-3. Check product-design coverage, including non-ideal states.
-4. Check scope-slice traceability.
-5. Check fixed/open/excluded boundaries.
-6. Check technical neutrality.
-7. Check internal consistency and terminology.
-8. Check that a developer unfamiliar with the conversation can use the document.
-9. Check that all approvals apply to the current revision.
+1. **Strategic usefulness** — Is there a clear recommendation rather than a reformatted request?
+2. **Evidence** — Does repository context support the direction?
+3. **Provenance** — Are facts, user decisions, recommendations, assumptions, and risks distinct?
+4. **Type-specific depth** — Does the selected product lens cover the questions that matter?
+5. **Proportionality** — Is the brief concise relative to the initiative?
+6. **Boundary** — Does it leave technical design open while resolving product direction?
+7. **Developer usability** — Can a capable developer begin code-focused brainstorming without the chat transcript?
 
-Fix spelling, formatting, or obviously editorial defects inline and log them as editorial. Do not silently repair a substantive product gap.
+## Automatic NOT_READY conditions
 
-## NOT_READY behavior
+- Repository access existed but the brief contains no meaningful repository evidence.
+- The brief mainly restates the original request.
+- A provisional claim is presented as fixed.
+- Routine validation, loading, retry, or duplicate behavior dominates a strategic brief.
+- The same proposition is repeated across several sections.
+- Requirement IDs or product slices add ceremony without clarity.
+- A marketing brief lacks audience, page job, positioning, message hierarchy, differentiation, proof, objections, visual direction, or conversion.
+- A workflow brief lacks actors, lifecycle, authority, business rules, or consequential exceptions.
+- The developer still has to invent a material product decision.
+- The document is disproportionately long for its useful decisions.
 
-For each blocker, report:
+## Review behavior
 
-- the exact gap or contradiction;
-- why it can change product behavior or technical direction;
-- the section that must change;
-- the earliest Product0 stage that owns the decision;
-- the next single question or action required.
+Fix obvious editorial defects and repetition inline. Do not silently repair substantive product direction.
 
-Update the brief's review notes and roll its `status` back to the earliest affected state. Do not ask the developer to decide the product issue.
+For each blocker report:
 
-## HANDOFF_READY behavior
+- the exact gap;
+- why it matters;
+- whether Product0 can resolve it from evidence and delegated authority;
+- the smallest next action.
 
-When no blocker remains:
+If Product0 can resolve the issue within existing authority, revise the brief, increment the revision, and review again. Ask the user only for a decision that genuinely requires their authority.
 
-1. Present the user with a concise final summary:
-   - approved outcome;
-   - fixed product decisions;
-   - product slices;
-   - non-goals;
-   - primary technical questions left open;
-   - known assumptions or risks.
-2. Ask: “Approve this revision for developer handoff?”
-3. Wait for explicit approval.
-4. On approval:
-   - record the approval against the current revision;
+## Handoff approval
+
+When the brief passes:
+
+1. Present a concise summary of:
+   - executive direction;
+   - strongest evidence;
+   - fixed decisions;
+   - Product0 recommendations;
+   - assumptions and open risks;
+   - questions left for technical brainstorming.
+2. Ask: `Approve this written revision for developer handoff?`
+3. On explicit approval:
    - set `status: handoff-ready`;
-   - update the decision log and `updated` date;
-   - report the exact brief path and revision;
-   - state that Product0 is complete and stops here.
+   - record the current revision and approval date in concise frontmatter or a short revision summary;
+   - report the exact path;
+   - stop Product0.
 
 Do not invoke `product0-using-brief`, brainstorming, planning, or implementation.
-
-## Red flags
-
-- Treating a vague product rule as technical latitude.
-- Passing because the developer is “smart enough to infer it.”
-- Requiring implementation details in order to declare a product brief ready.
-- Keeping `handoff-ready` after a semantic change to the brief.
-- Starting technical design after the user approves the handoff.

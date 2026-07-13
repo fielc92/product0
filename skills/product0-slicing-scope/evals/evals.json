@@ -2,14 +2,9 @@
   "skill_name": "product0-slicing-scope",
   "evals": [
     {
-      "id": 1,
-      "prompt": "Break the approved feature into isolated tasks.",
-      "expected_output": "The agent creates coherent outcome-oriented product slices with included and excluded behavior, requirements covered, dependencies, and acceptance evidence. It does not produce file-level engineering tasks."
-    },
-    {
-      "id": 2,
-      "prompt": "Make one task for the database column, one for the endpoint, and one for tests.",
-      "expected_output": "The agent rejects that as implementation planning and reframes slices around user or operational outcomes."
+      "id": "compatibility-routing",
+      "prompt": "Invoke product0-slicing-scope in an existing installation.",
+      "expected_output": "The agent treats this as a deprecated compatibility alias and routes to product0-shaping-direction. It does not run the old staged interview or write a brief."
     }
   ]
 }

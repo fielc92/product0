@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.0 — 2026-07-13
+
+- Replaced the staged checklist interview with repository orientation, direction shaping, independent challenge, atomic brief writing, and readiness review.
+- Prevented Product0 brief creation before direction approval.
+- Added a required lay-of-the-land output before product questions.
+- Replaced one-question-at-a-time discovery with consequential decision packets.
+- Added delegated-judgment rules for low-risk reversible choices.
+- Added evidence provenance for repository facts, user decisions, Product0 recommendations, assumptions, and risks.
+- Added adaptive type-specific product lenses and brief structure.
+- Added regression coverage for the underwhelming landing-page run.
+- Retained v0.1 stage names as deprecated compatibility aliases.
+
 ## 0.1.0 — 2026-07-13
 
 - Initial Product0 skill set.

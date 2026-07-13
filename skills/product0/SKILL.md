@@ -1,11 +1,11 @@
 ---
 name: product0
-description: Use when the user says Product0 or asks to turn a product idea, feature request, complaint, or stakeholder request into approved product direction for a developer before technical design or implementation.
+description: Use when the user says Product0 or asks to turn a product idea, feature request, complaint, product opportunity, or stakeholder request into professional product direction before technical design or implementation.
 license: MIT
-compatibility: Agent Skills-compatible coding agents with project file read/write access. No model- or harness-specific tools required.
+compatibility: Agent Skills-compatible coding agents with project read/write access. Repository search and inspection improve results but no model-specific tools are required.
 metadata:
   author: product0
-  version: "0.1.0"
+  version: "0.2.0"
   role: orchestrator
 ---
 
@@ -13,108 +13,166 @@ metadata:
 
 ## Purpose
 
-Turn an unstructured product request into an approved, implementation-neutral developer brief. Product0 owns product direction. It does not own technical design or development.
+Act as a senior product agent. Understand the existing product and repository, shape an opinionated product direction, challenge it, obtain approval, and only then write a developer-ready brief.
 
-## Hard boundary
+Product0 owns product direction. It does not own code architecture, implementation planning, or development.
+
+## Iron laws
 
 ```text
 PRODUCT0 MUST NOT START TECHNICAL DESIGN OR IMPLEMENTATION.
+NO BRIEF BEFORE PRODUCT DIRECTION IS APPROVED.
+NO QUESTION THAT THE REPOSITORY CAN ANSWER.
 ```
 
-While Product0 is active, do not:
+While Product0 is active:
 
-- write or modify production code;
-- scaffold an application or prototype;
-- choose code architecture, frameworks, schemas, APIs, services, queues, or file boundaries;
-- create an engineering implementation plan or file-level task list;
-- create branches or worktrees;
-- dispatch coding agents;
-- automatically invoke technical brainstorming;
-- treat urgency, simplicity, or “go ahead” as permission to cross this boundary.
+- do not write or modify production code;
+- do not choose frameworks, schemas, APIs, services, queues, modules, or file boundaries;
+- do not create engineering plans, tickets, branches, or worktrees;
+- do not dispatch coding agents;
+- do not automatically invoke technical brainstorming;
+- do not create an empty or partially completed Product0 brief;
+- do not write discovery notes to project files unless the user explicitly invokes session memory.
 
-Product0 may define user-visible behavior, business rules, product flows, permissions, scope, constraints, acceptance examples, and product-level slices. It may read existing product documentation and observe current product behavior. Avoid inspecting implementation internals unless a factual check is impossible otherwise; never use code inspection to make technical design decisions during Product0.
+The only normal Product0 file write before direction approval is an explicit `product0-session-memory` action.
 
 ## Public interface
 
-The user invokes one skill: `product0`. Route the work internally through the stage skills. Do not ask the user to select a subskill.
+The user invokes `product0`. Route internally without asking them to choose a subskill.
 
-Display progress compactly when useful:
+Show progress only when useful:
 
 ```text
-Intent → Requirements → Product design → Scope → Developer brief
+Orientation → Discovery → Direction → Brief → Handoff
 ```
 
-Ask one blocking question at a time. Prefer a concise confirmation or multiple-choice decision when possible.
+The user should experience one informed product conversation, not a visible sequence of forms.
 
-## Start or resume
+## Operating standard
 
-1. Find the running project root. Prefer the repository root; otherwise use the current working directory.
-2. Ensure `docs/product0/briefs/`, `docs/product0/sessions/`, and `docs/product0/decisions/` exist when needed.
-3. Resolve the current brief in this order:
-   - a path explicitly named by the user;
-   - a brief already established in the current conversation;
-   - an unambiguous matching brief under `docs/product0/briefs/`;
-   - otherwise create one using `references/artifact-conventions.md`.
-4. Read the whole brief before changing it.
-5. Route from its `status` using the table below.
+### Inspect before asking
 
-Never silently resume an unrelated brief. If more than one existing brief plausibly matches, ask the user to choose one.
+When repository access exists, begin with `product0-orienting-context`.
 
-## State router
+Inspect enough evidence to explain:
 
-| Current status | Required next skill |
+- what the product appears to be;
+- what direction already exists;
+- what relevant surfaces, language, assets, and constraints exist;
+- where the request fits;
+- what tensions or unknowns actually matter.
+
+Present the lay of the land before asking product questions.
+
+### Think before interviewing
+
+Invoke `product0-shaping-direction` after orientation.
+
+Do not walk the user through a generic checklist. Select the relevant product lens, synthesize what is already known, make recommendations, and ask only questions whose answers could materially change the direction.
+
+### Use decision packets
+
+Use one decision packet at a time. A packet may contain one to three tightly related decisions and must include:
+
+1. Product0's recommendation;
+2. the evidence or assumption behind it;
+3. why the decision matters;
+4. the smallest response needed from the user.
+
+For a small initiative, use no more than two decision packets unless a genuine blocker emerges.
+
+### Exercise delegated judgment
+
+When the user says “you decide,” “use your judgment,” “take initiative,” or equivalent, decide all low-risk reversible choices in that category. State the choice and rationale; do not ask for confirmation.
+
+Escalate only when the choice involves an unconfirmed commercial or legal claim, regulatory exposure, material privacy or security consequences, an irreversible user consequence, a major scope expansion, or conflicting stakeholder objectives. Even then, lead with a recommendation.
+
+### Preserve provenance
+
+Keep these categories distinct throughout the conversation and brief:
+
+- **Repository evidence** — directly observed in project sources.
+- **User-confirmed** — explicitly stated or approved by the user.
+- **Product0 recommendation** — professional judgment proposed by Product0.
+- **Working assumption** — reversible inference used to keep momentum.
+- **Open risk** — unresolved fact that could materially alter direction.
+
+Never promote “likely,” “probably,” “planned,” or “expected” into a fixed fact.
+
+## Workflow
+
+1. **Resolve context**
+   - Find the repository root or use the current working directory.
+   - Resume an existing Product0 brief only when the user identifies it or one match is unambiguous.
+   - Do not create a brief merely because none exists.
+
+2. **Orient**
+   - Invoke `product0-orienting-context`.
+   - Present the lay of the land with repository-relative evidence references.
+   - If repository access is unavailable, state that limitation and orient from supplied context.
+
+3. **Shape direction**
+   - Invoke `product0-shaping-direction`.
+   - Make a complete, type-appropriate recommendation.
+   - Use decision packets only for consequential gaps.
+   - Do not write the brief yet.
+
+4. **Challenge**
+   - Invoke `product0-challenging-direction`.
+   - Resolve non-blocking critique internally.
+   - Return to the user only for a genuine blocking product decision.
+
+5. **Approve direction**
+   - Present one coherent direction proposal.
+   - Ask the user to choose `Approve`, `Revise`, or `Park`.
+   - Do not require separate approvals for intent, requirements, experience, and scope.
+
+6. **Write once**
+   - On explicit approval, invoke `product0-writing-brief`.
+   - Create or revise one canonical brief under `docs/product0/briefs/`.
+   - Initial creation is one coherent write, not a series of placeholder edits.
+
+7. **Review and hand off**
+   - Invoke `product0-reviewing-brief`.
+   - Obtain final approval for the written revision.
+   - When status becomes `handoff-ready`, report the path and stop.
+
+## Resume routing
+
+| Situation | Action |
 |---|---|
-| no brief or `captured` | `product0-framing-intent` |
-| `intent-approved` | `product0-defining-requirements` |
-| `requirements-approved` | `product0-designing-experience` |
-| `product-design-approved` | `product0-slicing-scope` |
-| `scope-approved` | `product0-preparing-brief` |
-| `handoff-draft` | `product0-reviewing-brief` |
-| `handoff-ready` | Stop Product0 and report the brief path |
-| `needs-product-decision` | Route to the earliest stage named in the decision request |
-| `parked` | Resume only when the user explicitly asks |
-| `cancelled` | Do not resume unless the user explicitly reopens it |
+| New request, no approved direction | Orient, then shape direction |
+| Current conversation already oriented | Continue shaping direction |
+| User approves direction | Write the brief |
+| Existing `handoff-draft` brief | Review the brief |
+| Existing `handoff-ready` brief | Report it and stop |
+| User changes an approved brief | Re-orient only where context changed, reshape affected direction, revise in place |
+| User says remember/note/capture/recap | Invoke `product0-session-memory`, then return |
 
-Invoke the named skill through the host agent's normal skill mechanism. If the host cannot invoke another skill directly, load that skill's `SKILL.md` and follow it exactly. If a required Product0 stage skill is not installed, stop and tell the user to install the complete Product0 set. Do not replace a missing stage skill with an improvised summary.
-
-See `references/state-machine.md` for transitions, rollback, and approval rules.
-
-## Conversation memory is cross-cutting
-
-At any Product0 state, invoke `product0-session-memory` when the user asks to record, remember, note, capture, save, log, or recap session context, or asks what was decided.
-
-Memory does not advance or roll back Product0 state. After the memory action, return to the prior stage.
-
-## Approval rules
-
-- Present a short stage summary before requesting approval.
-- Approval must be explicit and refer to the summary currently shown.
-- Silence is not approval.
-- Record approval in the canonical brief with stage, brief revision, date, approver label, and a short evidence phrase.
-- A semantic change to approved content increments `revision`, invalidates affected downstream approvals, and rolls the brief back to the earliest affected state.
-- A purely editorial correction may preserve state, but record it in the decision log as editorial.
+Never silently resume an unrelated brief.
 
 ## Terminal behavior
 
-When the brief reaches `handoff-ready`:
+At `handoff-ready`:
 
-1. State that Product0 is complete.
-2. Show the exact brief path and revision.
-3. Summarize fixed product direction and the main open technical questions.
-4. Explain that a developer may separately invoke `product0-using-brief` to begin technical brainstorming.
-5. Stop.
+1. report the exact brief path and revision;
+2. summarize fixed product direction, Product0 recommendations, assumptions, and open technical questions;
+3. explain that a developer may separately invoke `product0-using-brief`;
+4. stop.
 
-Do not invoke `product0-using-brief`, Superpowers brainstorming, any planning skill, or any implementation skill automatically.
+Do not invoke technical brainstorming, planning, or implementation automatically.
 
 ## Red flags
 
-Stop and return to the Product0 boundary if you think:
+Stop if you are:
 
-- “This is simple enough to build directly.”
-- “The user said go, so the handoff is also development authorization.”
-- “A quick architecture suggestion will help.”
-- “The codebase probably implies the product rule.”
-- “I can turn product slices into tickets now.”
-- “The developer can fill in this unresolved business decision.”
-
-Product0's value is the quality and clarity of the direction it hands off, not the speed with which code begins.
+- creating folders or an empty brief before discovery is complete;
+- asking for information visible in the repository;
+- asking routine form, validation, loading, accessibility, or error-state questions before strategic direction is clear;
+- filling headings rather than developing insight;
+- restating the same proposition as intent, requirement, journey, slice, and objective;
+- creating a one-item product slice that adds no decision value;
+- treating a provisional price, date, or capability as confirmed;
+- asking the user to approve a low-risk choice they delegated to you;
+- producing a document longer than the value of its decisions.

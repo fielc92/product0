@@ -1,62 +1,28 @@
 ---
 product0_session: true
-session_id: p0-session-YYYYMMDD-HHMM-<slug>
-title: <descriptive session title>
 status: active
 created: YYYY-MM-DDTHH:MM
 updated: YYYY-MM-DDTHH:MM
-product0_brief: <relative path or null>
+brief: null
 ---
 
-# Product0 Session: <title>
+# Product0 Session: <topic>
 
-## Session purpose
+## User-stated context
 
-<Why this conversation is happening.>
+## Decisions and rationale
 
-## Current context
+## Product0 recommendations
 
-<Concise context needed to understand the conversation.>
+## Working assumptions and open risks
 
-## Remembered facts and constraints
-
-- <Fact or constraint, with source label when useful.>
-
-## Decisions
-
-### D-01 — <decision>
-
-**Decision:**
-
-**Rationale:**
-
-**Status:** active
-
-**Related Product0 section or requirement:**
-
-## Rejected or deferred alternatives
-
-- **Alternative:** <option>
-  - **Reason:** <why rejected or deferred>
+## Rejected alternatives
 
 ## Open questions
 
-- <Unresolved question and who or what can answer it.>
-
-## Corrections and superseded statements
-
-- <What changed, what it replaced, and why.>
-
-## Related artifacts
-
-- <relative path>
-
-## Session summary
-
-<Current concise summary. Revise this as the session develops.>
+## References
 
 ## Update log
 
 | Time | Update |
 |---|---|
-| YYYY-MM-DD HH:MM | Session memory created |

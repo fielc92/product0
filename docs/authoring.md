@@ -2,28 +2,48 @@
 
 ## Principles
 
-- Keep the `product0` orchestrator focused on routing, boundaries, artifacts, and state.
-- Put stage-specific judgment in the corresponding stage skill.
-- Use descriptions for realistic trigger conditions, not workflow summaries.
-- Avoid harness-specific tool names.
-- Prefer positive output contracts for document shape and hard prohibitions only for discipline boundaries.
-- Treat the canonical brief as the source of truth.
+- Keep `product0` focused on strict routing and professional operating rules.
+- Require repository orientation before questions.
+- Write artifacts only after direction approval.
+- Use product lenses selectively, not as forms.
+- Prefer positive output contracts for response shape.
+- Use hard prohibitions for boundary violations.
+- Keep instructions portable across Codex, Claude Code, OpenCode, and other Agent Skills hosts.
+- Optimize for decision quality and insight density, not template completeness.
 
 ## Eval-driven changes
 
-Each skill contains `evals/evals.json` with realistic prompts and expected behavior. Before modifying a skill:
+Before changing behavior:
 
-1. Add or revise an eval that exposes the undesired behavior.
-2. Observe the baseline behavior using the target agent harnesses when possible.
-3. Make the smallest instruction change that fixes the failure.
-4. Run the eval across at least two materially different models or harnesses.
-5. Check that unrelated evals still pass.
-6. Record newly observed rationalizations in `tests/baseline-failures.md`.
+1. Add or revise a realistic eval that exposes the failure.
+2. Record the baseline output or failure pattern.
+3. Make the smallest coherent skill change.
+4. Run structural validation.
+5. Run behavioral evals in fresh contexts across at least two materially different models or harnesses when available.
+6. Check unrelated scenarios.
+7. Add observed rationalizations to `tests/baseline-failures.md`.
 
-The included validator performs structural checks; it does not replace model-behavior evals.
+The validator checks repository contracts; it does not prove model behavior.
+
+## Required behavioral dimensions
+
+Product0 evals should cover:
+
+- repository orientation and evidence use;
+- professional product judgment;
+- delegated initiative;
+- question quality and decision-packet discipline;
+- prevention of premature file writes;
+- provenance and assumption control;
+- proportionality and non-repetition;
+- type-specific strategic depth;
+- strict technical-design boundary;
+- developer handoff quality.
+
+## Primary regression
+
+`tests/landing-page-regression.md` captures the v0.1 failure that motivated v0.2. Any change to discovery, writing, or review must be checked against it.
 
 ## Compatibility
 
-The Agent Skills standard requires the skill directory name and frontmatter `name` to match, with lowercase alphanumeric names and single hyphens. Keep descriptions below 1,024 characters.
-
-Do not add model-specific frontmatter to the portable `SKILL.md` files. Platform-specific packaging may be added outside `skills/` as an optional distribution layer, but the core set must remain usable through skills.sh.
+Skill directories and frontmatter names must match and use lowercase hyphenated names. Descriptions must explain trigger conditions, not summarize the entire workflow. Do not add model-specific frontmatter to portable core skills.

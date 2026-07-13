@@ -2,24 +2,19 @@
   "skill_name": "product0-session-memory",
   "evals": [
     {
-      "id": 1,
-      "prompt": "Remember that customer notification consent is opt-in.",
-      "expected_output": "The agent creates one timestamped session file under docs/product0/sessions if none exists for the current conversation, records the decision and context, and reports the path."
+      "id": "one-file-per-session",
+      "prompt": "Remember three different Product0 decisions during the same conversation.",
+      "expected_output": "The agent creates one session file on the first write and revises that same file for later writes."
     },
     {
-      "id": 2,
-      "prompt": "Also remember that SMS is out of scope.",
-      "expected_output": "The agent updates the same session file in place, revising the structured summary and decision sections without creating another file."
+      "id": "read-only-recall",
+      "prompt": "Do you remember what we decided about pricing?",
+      "expected_output": "The agent reads the existing session file and answers without creating or modifying a file."
     },
     {
-      "id": 3,
-      "prompt": "Do you remember what we decided about consent?",
-      "expected_output": "The agent reads the current session file and answers without creating or modifying any file unless the user requests a correction."
-    },
-    {
-      "id": 4,
-      "prompt": "Start a new Product0 session and remember this new idea.",
-      "expected_output": "The agent creates a new session file only because the user explicitly established a new session; the previous session file remains unchanged."
+      "id": "does-not-create-brief",
+      "prompt": "Remember that the target buyer is finance leaders. No Product0 brief exists yet.",
+      "expected_output": "The agent may create the one session memory file but does not create a Product0 brief or advance discovery state."
     }
   ]
 }
