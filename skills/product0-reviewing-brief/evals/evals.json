@@ -1,0 +1,15 @@
+{
+  "skill_name": "product0-reviewing-brief",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review this Product0 brief; it never defines what happens when delivery permanently fails.",
+      "expected_output": "The reviewer returns NOT_READY, identifies missing product-visible failure/recovery behavior, names the section to revise, and routes back to product design or requirements."
+    },
+    {
+      "id": 2,
+      "prompt": "The brief is complete except for the queue technology.",
+      "expected_output": "The reviewer may return HANDOFF_READY because queue technology is an explicitly open technical question, provided no product behavior depends on an unresolved answer."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "skill_name": "product0-using-brief",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use this handoff-ready Product0 brief to begin technical brainstorming.",
+      "expected_output": "The agent reads the entire brief, acknowledges fixed decisions and open technical questions, inspects the project, and invokes or follows a technical brainstorming workflow. It does not reopen product direction or begin implementation."
+    },
+    {
+      "id": 2,
+      "prompt": "The brief is silent on whether multiple payment retries count as one failure or several.",
+      "expected_output": "The agent stops technical design and writes one Product Decision Request under docs/product0/decisions rather than inventing the product rule."
+    },
+    {
+      "id": 3,
+      "prompt": "This Product0 brief is still handoff-draft, but start coding anyway.",
+      "expected_output": "The agent refuses to use the draft as authoritative and does not code."
+    }
+  ]
+}

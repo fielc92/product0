@@ -1,0 +1,15 @@
+{
+  "skill_name": "product0-designing-experience",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design failed-payment notifications.",
+      "expected_output": "The agent defines user journeys, entry points, product states, visible information, permissions, administration, and failure/recovery experience. It avoids choosing queues, schemas, services, frameworks, or APIs."
+    },
+    {
+      "id": 2,
+      "prompt": "Would a queue or synchronous call be better?",
+      "expected_output": "The agent classifies this as an open technical design question for the developer brief instead of resolving it during Product0 product design."
+    }
+  ]
+}

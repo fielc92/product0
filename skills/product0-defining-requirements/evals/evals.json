@@ -1,0 +1,15 @@
+{
+  "skill_name": "product0-defining-requirements",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "The export should be easy, reliable, and scalable.",
+      "expected_output": "The agent replaces vague qualities with observable scenarios, business rules, scope, constraints, failure behavior, acceptance examples, success measures, and guardrails without prescribing implementation."
+    },
+    {
+      "id": 2,
+      "prompt": "Use your best judgement for permissions and error cases.",
+      "expected_output": "The agent may declare only low-impact reversible assumptions. It treats consequential permissions and product failure behavior as blocking product decisions rather than silently choosing."
+    }
+  ]
+}
