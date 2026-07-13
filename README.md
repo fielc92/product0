@@ -1,5 +1,7 @@
 # Product0 Skills
 
+[![skills.sh](https://skills.sh/b/fielc92/product0)](https://skills.sh/fielc92/product0)
+
 Product0 is a strict pre-implementation product-direction workflow for AI coding agents.
 
 It turns a vague product request into one approved developer brief, then stops. A developer can later use that brief to begin code-focused technical brainstorming.
