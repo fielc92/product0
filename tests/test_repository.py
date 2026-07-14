@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -19,6 +20,8 @@ spec.loader.exec_module(validator)
 
 
 class Product0RepositoryTest(unittest.TestCase):
+    LENSES_ROOT = ROOT / "skills/product0/references/lenses"
+
     def test_repository_contract(self) -> None:
         errors, _warnings = validator.validate()
         self.assertEqual([], errors, "\n".join(errors))
@@ -79,6 +82,115 @@ class Product0RepositoryTest(unittest.TestCase):
         for name in validator.COMPATIBILITY_SKILLS:
             text = (ROOT / "skills" / name / "SKILL.md").read_text(encoding="utf-8")
             self.assertIn("DEPRECATED COMPATIBILITY ALIAS", text)
+
+    def test_marketing_surface_contract_is_strategic(self) -> None:
+        text = (self.LENSES_ROOT / "marketing-surface.md").read_text(encoding="utf-8")
+        markers = (
+            "MS01_TARGET_BUYER_AND_BUYING_SITUATION",
+            "MS02_PAGE_JOB_AND_DESIRED_PERCEPTION",
+            "MS03_POSITIONING_AND_VALUE_PROPOSITION",
+            "MS04_MESSAGE_HIERARCHY",
+            "MS05_PAGE_NARRATIVE",
+            "MS06_PRODUCT_DEMONSTRATION_AND_VISUAL_DIRECTION",
+            "MS07_PROOF_TRUST_AND_CREDIBILITY",
+            "MS08_BUYER_OBJECTIONS",
+            "MS09_CONVERSION_STRATEGY",
+            "MS10_MEASUREMENT_AND_CLAIM_SAFETY",
+        )
+        self._assert_deep_lens_contract(text, markers)
+
+    def test_product_workflow_contract_is_feature_ready(self) -> None:
+        text = (self.LENSES_ROOT / "product-workflow.md").read_text(encoding="utf-8")
+        markers = (
+            "PW01_ACTORS_AND_AFFECTED_PARTIES",
+            "PW02_TRIGGERING_SITUATION",
+            "PW03_DESIRED_PRODUCT_OUTCOME",
+            "PW04_LIFECYCLE_AND_STATE_PROGRESSION",
+            "PW05_BUSINESS_RULES",
+            "PW06_AUTHORITY_AND_PERMISSIONS",
+            "PW07_CONSEQUENTIAL_EXCEPTIONS",
+            "PW08_SUCCESS_EVIDENCE_AND_GUARDRAILS",
+            "PW09_SCOPE_AND_NON_GOALS",
+            "PW10_IMPLEMENTATION_NEUTRAL_HANDOFF",
+        )
+        self._assert_deep_lens_contract(text, markers)
+
+    def test_platform_capability_contract_is_feature_ready(self) -> None:
+        text = (self.LENSES_ROOT / "platform-capability.md").read_text(encoding="utf-8")
+        markers = (
+            "PC01_CONSUMERS",
+            "PC02_JOBS_AND_OUTCOMES_ENABLED",
+            "PC03_CAPABILITY_BOUNDARY",
+            "PC04_CONFIGURATION_AND_CONTROL",
+            "PC05_PRODUCT_LEVEL_GUARANTEES",
+            "PC06_FAILURE_CONSEQUENCES",
+            "PC07_ADOPTION_AND_MIGRATION_IMPLICATIONS",
+            "PC08_SUCCESS_EVIDENCE_AND_GUARDRAILS",
+            "PC09_SCOPE_AND_NON_GOALS",
+            "PC10_IMPLEMENTATION_NEUTRAL_HANDOFF",
+        )
+        self._assert_deep_lens_contract(text, markers)
+
+    def test_secondary_lenses_are_substantive(self) -> None:
+        lens_names = (
+            "integration",
+            "pricing-packaging",
+            "internal-operation",
+            "compliance-change",
+            "product-quality",
+        )
+        all_lens_names = (
+            "marketing-surface",
+            "product-workflow",
+            "platform-capability",
+            *lens_names,
+        )
+        unique_identifiers = []
+        for name in lens_names:
+            text = (self.LENSES_ROOT / f"{name}.md").read_text(encoding="utf-8")
+            unique_identifier = f"LENS_ID_{name.upper().replace('-', '_')}"
+            unique_identifiers.append(unique_identifier)
+            self.assertIn(unique_identifier, text)
+            for marker in (
+                "LENS_EVIDENCE_TO_INSPECT",
+                "LENS_RECOMMENDATIONS_TO_MAKE",
+                "LENS_BLOCKING_PRODUCT_DECISIONS",
+                "LENS_IMPLEMENTATION_DETAILS_NOT_TO_ASK",
+            ):
+                self.assertIn(marker, text)
+            self.assertNotRegex(text, r"\b(?:TBD|TODO)\b")
+            self.assertNotRegex(text, r"\b(?:MS|PW|PC)\d{2}")
+            self.assertGreaterEqual(self._prose_word_count(text), 120)
+
+        all_unique_identifiers = []
+        for name in all_lens_names:
+            text = (self.LENSES_ROOT / f"{name}.md").read_text(encoding="utf-8")
+            all_unique_identifiers.extend(re.findall(r"\bLENS_ID_[A-Z_]+\b", text))
+        self.assertEqual(len(all_unique_identifiers), len(set(all_unique_identifiers)))
+        self.assertEqual(len(unique_identifiers), len(set(unique_identifiers)))
+
+    def _assert_deep_lens_contract(self, text: str, markers: tuple[str, ...]) -> None:
+        for marker in markers:
+            self.assertIn(marker, text)
+        for obligation in (
+            "Repository evidence to inspect",
+            "Product0 recommendation",
+            "Blocking product decision",
+            "Reserved for technical brainstorming",
+        ):
+            self.assertIn(obligation, text)
+        self.assertIn("Direction approval is prohibited", text)
+
+    def _prose_word_count(self, text: str) -> int:
+        without_frontmatter = re.sub(r"\A---.*?---\s*", "", text, flags=re.DOTALL)
+        without_fences = re.sub(r"```.*?```", "", without_frontmatter, flags=re.DOTALL)
+        prose_lines = [
+            line
+            for line in without_fences.splitlines()
+            if not line.lstrip().startswith("#")
+            and not re.fullmatch(r"\s*[A-Z][A-Z0-9_]+\s*", line)
+        ]
+        return len(re.findall(r"\b[\w'-]+\b", "\n".join(prose_lines)))
 
 
 if __name__ == "__main__":

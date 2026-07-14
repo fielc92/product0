@@ -11,27 +11,35 @@ DO NOT WRITE THE BRIEF DURING DISCOVERY.
 DO NOT TURN A GENERIC CHECKLIST INTO THE CONVERSATION.
 ```
 
-Read the orientation output and current request first. Choose a primary lens:
-marketing or conversion surface, product workflow, platform capability,
-integration, pricing or packaging, internal operation, compliance-driven change,
-product quality or usability, or another clearly named product problem. Use a
-secondary lens only when it materially affects the result.
+Read the orientation output and current request first. Classify the request and
+load only its matching primary lens from `references/lenses/`:
+
+- marketing or conversion surface: `marketing-surface.md`;
+- feature, journey, or service flow: `product-workflow.md`;
+- reusable primitive, platform, or builder capability: `platform-capability.md`;
+- external system or data handoff: `integration.md`;
+- plans, entitlements, or commercial offer: `pricing-packaging.md`;
+- employee, support, administrator, or operational workflow: `internal-operation.md`;
+- law, policy, contractual, security, or regulatory change: `compliance-change.md`;
+- reliability, usability, accessibility, performance, or trust improvement:
+  `product-quality.md`.
+
+Load a secondary lens only when it materially changes the proposed outcome,
+scope, authority, guardrail, or evidence. Name the combination and why each
+lens is needed. Do not run every lens as a generic checklist. If the request
+does not fit a named lens, state the product problem in plain language and use
+the smallest useful combination as a guide rather than manufacturing a new
+interview.
 
 ## Build the direction
 
-Reason through, as relevant: the problem; actors and situation; outcome and
-strategy; important behavior or experience; differentiation, proof, trust,
-objections, and risk; scope and non-goals; success evidence and guardrails;
-provenance; and the territory left for technical brainstorming. Do not promote
-routine implementation defaults into product strategy.
-
-For marketing work, cover audience, page job, desired perception, positioning,
-value proposition, message hierarchy, proof, objections, visual storytelling,
-conversion, measurement, and claims guardrails. For workflows, cover actors,
-trigger, goal, lifecycle, business rules, authority, consequential exceptions,
-permissions, support implications, and scope. For platform capabilities, cover
-consumer, value, configuration versus customization, control, guarantees,
-limits, extension, integration, and adoption.
+Use the selected lens to inspect evidence, make a professional recommendation,
+identify only blocking product decisions, and preserve implementation detail for
+technical brainstorming. Reason through the problem, actors and situation,
+outcome and strategy, important behavior or experience, scope and non-goals,
+success evidence and guardrails, provenance, and technical handoff only when
+the selected lens makes each relevant. Do not promote routine implementation
+defaults into product strategy.
 
 ## Decision packets
 
