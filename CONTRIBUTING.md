@@ -14,3 +14,5 @@ python -m unittest discover -s tests -v
 ```
 
 8. Describe the baseline failure, the intended behavioral change, and any live-model evals performed.
+
+For v0.2.1, keep retained metadata at one version, use the install audit before removing Product0 directories, preserve unrelated skills, and record unavailable behavioral harnesses as blocked.

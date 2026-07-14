@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1] — 2026-07-14
+
+- Made Product0 self-contained: three active skills and five explicit-invocation compatibility aliases.
+- Added deterministic brief-shape QA, a semantic readiness rubric, adaptive developer handoff, and install auditing.
+- Removed stale v0.2 sibling workflow skills and added mixed-install detection.
+- Added environment-gated behavioral acceptance records; blocked runs do not count as passed.
+
 ## 0.2.0 — 2026-07-13
 
 - Replaced the staged checklist interview with repository orientation, direction shaping, independent challenge, atomic brief writing, and readiness review.

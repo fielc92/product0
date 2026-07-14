@@ -130,6 +130,11 @@ class Product0RepositoryTest(unittest.TestCase):
             if re.search(r"must\s+(?:preserve|trace|use)", sentence, re.I):
                 self.assertRegex(sentence, r"when present|if present")
 
+    def test_v021_release_metadata_is_consistent(self) -> None:
+        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        self.assertIn("## [0.2.1]", changelog)
+        self.assertIn("0.2.1", (ROOT / "README.md").read_text(encoding="utf-8"))
+
     def test_marketing_surface_contract_is_strategic(self) -> None:
         text = (self.LENSES_ROOT / "marketing-surface.md").read_text(encoding="utf-8")
         markers = (

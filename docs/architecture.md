@@ -74,3 +74,7 @@ This prevents provisional or inferred information from becoming false certainty.
 ## Compatibility
 
 The v0.1 stage names remain discoverable as compatibility aliases but route into the v0.2 active skills. They do not create artifacts or run independent approval stages.
+
+## v0.2.1 composition
+
+Only product0, product0-session-memory, and product0-using-brief are active. Orientation, direction shaping, challenge, writing, and review are internal reference modules of product0, so normal workflow does not depend on sibling discovery. Five explicit aliases route to product0; five stale v0.2 siblings are installation evidence and must be removed only when the audit identifies them.

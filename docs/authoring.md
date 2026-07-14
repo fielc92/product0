@@ -47,3 +47,7 @@ Product0 evals should cover:
 ## Compatibility
 
 Skill directories and frontmatter names must match and use lowercase hyphenated names. Descriptions must explain trigger conditions, not summarize the entire workflow. Do not add model-specific frontmatter to portable core skills.
+
+## v0.2.1 quality and evidence
+
+Marketing surfaces, product workflows, and platform capabilities require deep type-specific contracts. The other five lenses must not use placeholders. Use adaptive classifications, canonical S-01 slice headings, and conditional rationale sections. Keep raw harness output ignored; promote only sanitized behavioral records. A missing binary, model, authentication, or installation is blocked evidence, not a passed run.

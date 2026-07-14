@@ -27,7 +27,15 @@ Separate developer action
 
 Product0 borrows Superpowers' strict state-machine discipline while owning the earlier product-direction layer.
 
-## What changed in v0.2
+## v0.2.1 distribution
+
+The release has exactly three active directories: product0, product0-session-memory, and product0-using-brief. It retains five compatibility aliases that redirect only to product0. Remove stale product0-orienting-context, product0-shaping-direction, product0-challenging-direction, product0-writing-brief, and product0-reviewing-brief only when the install audit reports them. All retained skills share metadata version 0.2.1.
+
+Run python3 scripts/audit_install.py --format human TARGET_SKILLS_ROOT before and after a copy installation. Status clean means all eight retained directories are valid; stale, malformed, and mixed return nonzero exit codes. The audit never deletes unrelated skills.
+
+Templates are adaptive: classifications choose useful sections, slices use canonical S-01 grammar, and traceability and proportionality rationales are conditional. Structural checks support semantic review; environment-blocked behavioral runs are recorded as blocked, never passed.
+
+## What changed in v0.2.1
 
 - No brief is created before product direction is approved.
 - Repository orientation happens before product questions.
