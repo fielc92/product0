@@ -14,7 +14,14 @@ unoriented
   -> STOP
 ```
 
-The first five states normally exist only in the conversation. Product0 does not create a project brief while orientation and discovery are incomplete.
+```text
+NO_PROJECT_ARTIFACT_BEFORE_DIRECTION_APPROVAL
+```
+
+Orientation through direction approval exists only in conversation/session state.
+Product0 does not create a project artifact while orientation and discovery are
+incomplete. An explicit `product0-session-memory` request remains the sole
+exception.
 
 ## File transition
 

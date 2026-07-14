@@ -20,9 +20,14 @@ Use the project's local date and lowercase kebab-case slugs.
 
 ```text
 NO BRIEF BEFORE PRODUCT DIRECTION IS APPROVED.
+NO_PROJECT_ARTIFACT_BEFORE_DIRECTION_APPROVAL.
 ```
 
 Do not create a placeholder brief, pending headings, empty sections, or discovery scratch file. Initial brief creation is one coherent write after the user approves the direction proposal.
+
+Orientation through direction approval exists only in conversation/session state.
+An explicit `product0-session-memory` request is the sole exception to the
+project-artifact rule; it does not approve direction or advance the workflow.
 
 ## Canonical brief
 

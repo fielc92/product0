@@ -44,6 +44,15 @@ ALLOWED_FRONTMATTER = {
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 REFERENCE_RE = re.compile(r"(?<![\w/])((?:assets|references)/[A-Za-z0-9._/-]+)")
 
+CORE_WORKFLOW_REFERENCES = (
+    "references/orienting-context.md",
+    "references/shaping-direction.md",
+    "references/challenging-direction.md",
+    "references/writing-brief.md",
+    "references/reviewing-brief.md",
+    "references/version-skew.md",
+)
+
 
 @dataclass(frozen=True)
 class SkillDoc:
@@ -183,10 +192,12 @@ def validate() -> tuple[list[str], list[str]]:
             "PRODUCT0 MUST NOT START TECHNICAL DESIGN OR IMPLEMENTATION",
             "NO BRIEF BEFORE PRODUCT DIRECTION IS APPROVED",
             "NO QUESTION THAT THE REPOSITORY CAN ANSWER",
-            "product0-orienting-context",
-            "product0-shaping-direction",
-            "product0-challenging-direction",
-            "product0-writing-brief",
+            "CORE_WORKFLOW_IS_SELF_CONTAINED",
+            "references/orienting-context.md",
+            "references/shaping-direction.md",
+            "references/challenging-direction.md",
+            "references/writing-brief.md",
+            "references/reviewing-brief.md",
             "handoff-ready",
         ],
         "product0-orienting-context": [
@@ -229,6 +240,10 @@ def validate() -> tuple[list[str], list[str]]:
     orchestrator = docs.get("product0")
     if orchestrator and "Ask one blocking question at a time" in orchestrator.text:
         errors.append("product0: v0.1 one-question interview instruction must be removed")
+    if orchestrator:
+        for rel in CORE_WORKFLOW_REFERENCES:
+            if rel not in orchestrator.text:
+                errors.append(f"product0: missing core workflow reference {rel!r}")
 
     template = ROOT / "skills" / "product0-writing-brief" / "assets" / "product-brief-template.md"
     if template.is_file():

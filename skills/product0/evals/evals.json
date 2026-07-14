@@ -7,6 +7,11 @@
       "expected_output": "The agent first inspects relevant repository product context, existing docs, public surfaces, copy, assets, and recent direction. It presents a useful lay of the land before asking questions. It creates no Product0 brief or directories during discovery, asks only consequential decision packets, and focuses on audience, positioning, message hierarchy, proof, objections, product visuals, and conversion rather than routine form mechanics."
     },
     {
+      "id": "landing-page-v02-hybrid-runtime",
+      "prompt": "Use Product0 in the running repository: we need to design a simple landing page for the app.",
+      "expected_output": "The workflow produces no positive invocation of a deprecated or stale stage skill; orients the repository before asking product questions; makes a marketing recommendation beyond CTA and form mechanics; completes a challenge pass before direction approval; writes no brief before complete direction approval; writes one concise brief after approval; creates no one-item product slice; and adds no requirement IDs unless Product0 states why stable traceability materially needs them."
+    },
+    {
       "id": "delegated-judgment",
       "prompt": "Use Product0 for the demo request flow. You decide what information we should collect.",
       "expected_output": "After repository orientation, the agent makes a professional low-friction recommendation and explains why. It does not ask the user to approve the delegated low-risk choice unless a material legal, commercial, privacy, or irreversible consequence requires escalation."

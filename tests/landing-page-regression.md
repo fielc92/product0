@@ -1,6 +1,12 @@
 # Landing-page regression scenario
 
-This scenario is the primary behavioral RED test for Product0 v0.2.
+This scenario is the primary behavioral RED test for Product0 v0.2. The companion
+fixtures are human-readable mock data only:
+
+- `tests/fixtures/2026-07-13-v02-hybrid-runtime-transcript.md`
+- `tests/fixtures/2026-07-13-v02-mocked-landing-page-brief.md`
+
+They are not consumed by the Task 1 unit test.
 
 ## User request
 
@@ -47,3 +53,10 @@ Assume the repository contains some combination of:
 - Asking the user to approve a delegated low-risk choice.
 - Converting provisional commercial language into a fixed claim.
 - Producing a repetitive, template-complete document with no evidence.
+
+## Task 1 RED boundary
+
+Before implementation, the repository contract must fail because the root skill
+does not yet reference all five self-contained core modules and still contains
+positive stale sibling-stage routing. This is intentional RED evidence; later
+tasks own the behavior change and the additional behavioral contracts.

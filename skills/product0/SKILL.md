@@ -53,7 +53,7 @@ The user should experience one informed product conversation, not a visible sequ
 
 ### Inspect before asking
 
-When repository access exists, begin with `product0-orienting-context`.
+When repository access exists, begin by completing the bundled orientation phase.
 
 Inspect enough evidence to explain:
 
@@ -67,7 +67,7 @@ Present the lay of the land before asking product questions.
 
 ### Think before interviewing
 
-Invoke `product0-shaping-direction` after orientation.
+Shape direction after orientation.
 
 Do not walk the user through a generic checklist. Select the relevant product lens, synthesize what is already known, make recommendations, and ask only questions whose answers could materially change the direction.
 
@@ -102,26 +102,29 @@ Never promote “likely,” “probably,” “planned,” or “expected” int
 
 ## Workflow
 
+```text
+CORE_WORKFLOW_IS_SELF_CONTAINED
+Never invoke a separate Product0 stage skill, even when one is installed.
+The only separate Product0 skills allowed are product0-session-memory on explicit memory intent and product0-using-brief after Product0 has stopped and a developer starts it separately.
+```
+
+The core workflow always uses the bundled relative modules. Do not read sibling
+stage-skill bodies as workflow guidance; see `references/version-skew.md` when
+an installation contains mixed Product0 versions.
+
 1. **Resolve context**
    - Find the repository root or use the current working directory.
    - Resume an existing Product0 brief only when the user identifies it or one match is unambiguous.
    - Do not create a brief merely because none exists.
 
 2. **Orient**
-   - Invoke `product0-orienting-context`.
-   - Present the lay of the land with repository-relative evidence references.
-   - If repository access is unavailable, state that limitation and orient from supplied context.
+   - Read `references/orienting-context.md` and complete that phase.
 
 3. **Shape direction**
-   - Invoke `product0-shaping-direction`.
-   - Make a complete, type-appropriate recommendation.
-   - Use decision packets only for consequential gaps.
-   - Do not write the brief yet.
+   - Then read `references/shaping-direction.md` and complete that phase.
 
 4. **Challenge**
-   - Invoke `product0-challenging-direction`.
-   - Resolve non-blocking critique internally.
-   - Return to the user only for a genuine blocking product decision.
+   - Then read `references/challenging-direction.md` and complete that phase.
 
 5. **Approve direction**
    - Present one coherent direction proposal.
@@ -129,14 +132,10 @@ Never promote “likely,” “probably,” “planned,” or “expected” int
    - Do not require separate approvals for intent, requirements, experience, and scope.
 
 6. **Write once**
-   - On explicit approval, invoke `product0-writing-brief`.
-   - Create or revise one canonical brief under `docs/product0/briefs/`.
-   - Initial creation is one coherent write, not a series of placeholder edits.
+   - After complete direction approval, read `references/writing-brief.md`.
 
 7. **Review and hand off**
-   - Invoke `product0-reviewing-brief`.
-   - Obtain final approval for the written revision.
-   - When status becomes `handoff-ready`, report the path and stop.
+   - Then read `references/reviewing-brief.md`.
 
 ## Resume routing
 
@@ -148,7 +147,7 @@ Never promote “likely,” “probably,” “planned,” or “expected” int
 | Existing `handoff-draft` brief | Review the brief |
 | Existing `handoff-ready` brief | Report it and stop |
 | User changes an approved brief | Re-orient only where context changed, reshape affected direction, revise in place |
-| User says remember/note/capture/recap | Invoke `product0-session-memory`, then return |
+| User says remember/note/capture/recap | Use `product0-session-memory`, then return |
 
 Never silently resume an unrelated brief.
 
