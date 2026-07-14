@@ -37,11 +37,15 @@ Assume the repository contains some combination of:
 6. Use no more than two decision packets for an appropriately small landing page unless a genuine blocker appears.
 7. Make low-risk choices when the user delegates judgment.
 8. Preserve “likely 1%” as provisional.
-9. Challenge the proposed direction before user approval.
-10. Write one concise brief only after direction approval.
-11. Include relevant repository evidence and provenance.
-12. Omit requirement IDs, lifecycle states, or product slices when they add no value.
-13. Stop at developer handoff.
+9. Challenge the proposed direction before user approval, removing or
+   preventing one-item product slices, repeated form mechanics, unsupported
+   commercial claims, and irrelevant future technical questions.
+10. Do not ask for approval until positioning, page narrative, proof,
+    objections, and product demonstration or visual direction exist.
+11. Write one concise brief only after direction approval.
+12. Include relevant repository evidence and provenance.
+13. Omit requirement IDs, lifecycle states, or product slices when they add no value.
+14. Stop at developer handoff.
 
 ## Forbidden behavior
 

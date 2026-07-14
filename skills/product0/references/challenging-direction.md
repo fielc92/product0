@@ -15,19 +15,23 @@ and apply the same rubric.
 
 ## Rubric
 
-- **Problem and strategy:** solve the actual problem, make a meaningful choice,
-  consider genuinely different alternatives, and improve on a restated request.
+- **Problem and strategy:** confirm repository evidence materially affected the
+  recommendation and that it solves the business or product problem rather
+  than merely specifying UI mechanics. Reject a restated request without a
+  meaningful strategic choice.
 - **Evidence:** support claims with repository evidence, acknowledge stale or
   conflicting sources, preserve provenance, and do not promote provisional
   statements to facts.
 - **Product depth:** cover the high-value questions of the selected lens. A
-  marketing direction needs audience, positioning, hierarchy, differentiation,
-  proof, objections, visuals, and conversion. A workflow needs actors,
-  lifecycle, rules, authority, and consequential exceptions.
-- **Proportionality:** do not let routine defaults, unnecessary IDs or slices,
-  or repeated propositions dominate the direction.
+  marketing direction must cover positioning, message hierarchy, page
+  narrative, proof, objections, and product demonstration or visual direction
+  before approval. A workflow needs actors, lifecycle, rules, authority, and
+  consequential exceptions.
+- **Proportionality:** reject routine defaults crowding out strategic direction,
+  repeated propositions, a one-item product slice, or scope and document depth
+  that are disproportionate to the initiative.
 - **Boundary:** avoid technical design, resolve product decisions, and leave
-  technical questions clearly for later.
+  only technical questions that are relevant to the requested implementation.
 
 ## Verdicts and review behavior
 
@@ -44,5 +48,7 @@ when a blocker requires their authority under Product0's escalation rules.
 
 Common rejection reasons include missing evidence despite repository access,
 template completeness without insight, provisional claims presented as approved,
-routine mechanics dominating strategy, ceremonial one-item slices, absent buyer
-or proof, and a direction too generic for later technical brainstorming.
+routine mechanics dominating strategy, repeated form mechanics, ceremonial
+one-item slices, unsupported commercial claims, irrelevant future technical
+questions, approval before marketing depth exists, absent buyer or proof, and a
+direction too generic for later technical brainstorming.
