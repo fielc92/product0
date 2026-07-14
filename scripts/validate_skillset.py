@@ -14,13 +14,8 @@ SKILLS_ROOT = ROOT / "skills"
 
 ACTIVE_SKILLS = {
     "product0",
-    "product0-orienting-context",
-    "product0-shaping-direction",
-    "product0-challenging-direction",
-    "product0-writing-brief",
-    "product0-reviewing-brief",
-    "product0-using-brief",
     "product0-session-memory",
+    "product0-using-brief",
 }
 
 COMPATIBILITY_SKILLS = {
@@ -32,6 +27,13 @@ COMPATIBILITY_SKILLS = {
 }
 
 EXPECTED_SKILLS = ACTIVE_SKILLS | COMPATIBILITY_SKILLS
+STALE_V02_SIBLING_SKILLS = {
+    "product0-orienting-context",
+    "product0-shaping-direction",
+    "product0-challenging-direction",
+    "product0-writing-brief",
+    "product0-reviewing-brief",
+}
 
 ALLOWED_FRONTMATTER = {
     "name",
@@ -110,7 +112,7 @@ def validate() -> tuple[list[str], list[str]]:
     if missing:
         errors.append(f"Missing expected skills: {', '.join(sorted(missing))}")
     if unexpected:
-        warnings.append(f"Unexpected additional skills: {', '.join(sorted(unexpected))}")
+        errors.append(f"Unexpected additional skills: {', '.join(sorted(unexpected))}")
 
     docs: dict[str, SkillDoc] = {}
 
@@ -138,7 +140,10 @@ def validate() -> tuple[list[str], list[str]]:
             errors.append(f"{name}: name length must be 1-64 characters")
         if not 1 <= len(description) <= 1024:
             errors.append(f"{name}: description length must be 1-1024 characters")
-        if not description.startswith("Use when"):
+        if not description.startswith("Use when") and not (
+            name in COMPATIBILITY_SKILLS
+            and description.startswith("Use only when the user explicitly invokes")
+        ):
             warnings.append(f"{name}: description should start with 'Use when'")
         if not meta.get("license"):
             errors.append(f"{name}: license is required")
@@ -245,7 +250,7 @@ def validate() -> tuple[list[str], list[str]]:
             if rel not in orchestrator.text:
                 errors.append(f"product0: missing core workflow reference {rel!r}")
 
-    template = ROOT / "skills" / "product0-writing-brief" / "assets" / "product-brief-template.md"
+    template = ROOT / "skills" / "product0" / "references" / "brief-templates" / "marketing-surface.md"
     if template.is_file():
         text = template.read_text(encoding="utf-8")
         for forbidden in ("_Status: pending_", "status: captured", "#### R-01"):

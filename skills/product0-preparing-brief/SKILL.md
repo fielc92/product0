@@ -1,26 +1,23 @@
 ---
 name: product0-preparing-brief
-description: Use when a user or older workflow invokes the former brief-preparation stage; retained only to route existing Product0 installations into the v0.2 workflow.
+description: Use only when the user explicitly invokes product0-preparing-brief by name; this deprecated alias redirects to product0.
 license: MIT
 compatibility: Agent Skills-compatible agents.
 metadata:
   author: product0
-  version: "0.2.0"
+  version: "0.2.1"
   role: compatibility
 ---
 
 # Deprecated Product0 Compatibility Alias
 
-```text
 DEPRECATED COMPATIBILITY ALIAS
-```
 
-This skill no longer owns a separate approval stage.
+EXPLICIT INVOCATION ONLY
 
-1. Do not create or update a Product0 brief.
-2. Do not resume the v0.1 checklist interview.
-3. Load `product0-writing-brief` and follow it exactly.
-4. Preserve any current conversation context and repository orientation.
-5. Tell the user only when the target skill is unavailable.
+This name is retained for one release cycle because an older user or saved workflow may invoke it directly.
 
-The active Product0 workflow is orientation → direction shaping → challenge → one approved brief write → review.
+1. Do not perform discovery, approval, brief writing, or state transitions here.
+2. Load `product0`.
+3. Preserve the user's current request and continue under the self-contained Product0 workflow.
+4. If `product0` is unavailable, report that the complete Product0 set must be installed and stop.

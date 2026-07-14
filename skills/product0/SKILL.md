@@ -5,7 +5,7 @@ license: MIT
 compatibility: Agent Skills-compatible coding agents with project read/write access. Repository search and inspection improve results but no model-specific tools are required.
 metadata:
   author: product0
-  version: "0.2.0"
+  version: "0.2.1"
   role: orchestrator
 ---
 

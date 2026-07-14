@@ -5,7 +5,7 @@ license: MIT
 compatibility: Agent Skills-compatible coding agents with project file read/write access.
 metadata:
   author: product0
-  version: "0.2.0"
+  version: "0.2.1"
   role: cross-cutting
 ---
 

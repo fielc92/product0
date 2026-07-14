@@ -72,16 +72,51 @@ class Product0RepositoryTest(unittest.TestCase):
 
     def test_brief_template_is_adaptive(self) -> None:
         text = (
-            ROOT / "skills/product0-writing-brief/assets/product-brief-template.md"
+            ROOT / "skills/product0/references/brief-templates/marketing-surface.md"
         ).read_text(encoding="utf-8")
         self.assertNotIn("_Status: pending_", text)
         self.assertNotIn("status: captured", text)
-        self.assertIn("Use only sections that add decision value", text)
+        self.assertIn("TEMPLATE_IS_A_MENU_NOT_A_CHECKLIST", text)
 
     def test_old_stages_are_compatibility_aliases(self) -> None:
         for name in validator.COMPATIBILITY_SKILLS:
             text = (ROOT / "skills" / name / "SKILL.md").read_text(encoding="utf-8")
             self.assertIn("DEPRECATED COMPATIBILITY ALIAS", text)
+
+    def test_only_three_active_runtime_skills(self) -> None:
+        self.assertEqual(
+            {"product0", "product0-session-memory", "product0-using-brief"},
+            validator.ACTIVE_SKILLS,
+        )
+        self.assertEqual(
+            {
+                "product0-framing-intent",
+                "product0-defining-requirements",
+                "product0-designing-experience",
+                "product0-slicing-scope",
+                "product0-preparing-brief",
+            },
+            validator.COMPATIBILITY_SKILLS,
+        )
+        names = {path.parent.name for path in (ROOT / "skills").glob("*/SKILL.md")}
+        self.assertEqual(validator.EXPECTED_SKILLS, names)
+        self.assertEqual(
+            {
+                "product0-orienting-context",
+                "product0-shaping-direction",
+                "product0-challenging-direction",
+                "product0-writing-brief",
+                "product0-reviewing-brief",
+            },
+            validator.STALE_V02_SIBLING_SKILLS,
+        )
+
+    def test_compatibility_aliases_redirect_only_to_product0(self) -> None:
+        for name in validator.COMPATIBILITY_SKILLS:
+            text = (ROOT / "skills" / name / "SKILL.md").read_text(encoding="utf-8")
+            self.assertIn("EXPLICIT INVOCATION ONLY", text)
+            self.assertIn("Load \u0060product0\u0060", text)
+            self.assertLessEqual(len(text.split()), 140)
 
     def test_marketing_surface_contract_is_strategic(self) -> None:
         text = (self.LENSES_ROOT / "marketing-surface.md").read_text(encoding="utf-8")
