@@ -20,7 +20,11 @@ def main() -> int:
     modes = ("fresh", "mixed") if args.install_mode == "both" else (args.install_mode,)
     missing = []
     for harness in harnesses:
-        variable = "PRODUCT0_" + harness.upper().replace("-", "_") + "_MODEL"
+        variable = {
+            "codex": "PRODUCT0_CODEX_MODEL",
+            "claude-code": "PRODUCT0_CLAUDE_MODEL",
+            "opencode": "PRODUCT0_OPENCODE_MODEL",
+        }[harness]
         if not os.environ.get(variable) or not shutil.which(harness.split("-")[0]):
             missing.append(f"{harness}: missing binary or {variable}")
     for harness in harnesses:
