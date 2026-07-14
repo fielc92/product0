@@ -69,5 +69,8 @@ Do not cite implementation details as product facts unless they describe current
 - Omit sections that add no decision value.
 - Use requirement IDs only for complex interacting behavior that benefits from traceability.
 - Use product slices only when two or more coherent outcomes, phases, or deferrals genuinely exist.
+- Use `### S-NN: <title>` plus a prose body for every slice; one-item slices are forbidden.
+- When requirements or stable requirement IDs appear, include a non-empty `## Traceability rationale`.
+- When a small marketing brief exceeds 1,800 body words, include a non-empty `## Proportionality rationale`.
 - Avoid raw approval transcripts and line-by-line decision logs.
 - Do not commit artifacts unless the user or repository policy asks for commits.

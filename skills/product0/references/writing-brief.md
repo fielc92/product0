@@ -25,10 +25,23 @@ direction, and conversion; workflows need actors, lifecycle, rules, authority,
 and exceptions; platforms need consumers, boundaries, configuration, guarantees,
 and control.
 
+Use `references/brief-templates/marketing-surface.md` for marketing work and
+`references/brief-templates/general.md` otherwise. Templates are menus, not
+checklists: remove their comments and every empty, irrelevant, or duplicative
+heading from the generated brief.
+
 Avoid ceremony: use requirement IDs only when complex interacting behavior needs
 traceability; use product slices only for two or more meaningful outcomes,
 phases, or deferrals; omit empty sections, repeated propositions, transcripts,
-and generic mechanics. Scale depth to the initiative; insight density matters
+and generic mechanics. When requirements or stable IDs appear, include a
+non-empty `## Traceability rationale` explaining why named decisions and
+section headings are insufficient. A small marketing brief above 1,800 body
+words requires a non-empty `## Proportionality rationale` explaining its unique
+decision value; an empty rationale heading never satisfies either rule.
+
+When slices are present, use `### S-NN: <title>` headings and provide a prose
+body for each independently meaningful outcome or release boundary. At least
+two slices are required. Scale depth to the initiative; insight density matters
 more than length.
 
 Every brief needs frontmatter with current status and revision, executive

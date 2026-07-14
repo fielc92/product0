@@ -138,6 +138,49 @@ class Product0RepositoryTest(unittest.TestCase):
         self.assertIn("unless a genuine blocker is\ndocumented", text)
         self.assertIn("**Open risk** provenance entry", text)
 
+    def test_marketing_template_is_adaptive(self) -> None:
+        template = (
+            ROOT / "skills/product0/references/brief-templates/marketing-surface.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("TEMPLATE_IS_A_MENU_NOT_A_CHECKLIST", template)
+        for marker in (
+            "<!-- required -->",
+            "<!-- type-required: marketing-surface -->",
+            "<!-- conditional:",
+            "<!-- optional -->",
+        ):
+            self.assertIn(marker, template)
+        for pattern in (
+            r"(?m)^### R-\d+",
+            r"_Status:\s*(?:pending|approved)",
+            r"(?m)^## Approval record\s*$",
+        ):
+            self.assertNotRegex(template, pattern)
+        for heading in ("Product requirements", "Product slices"):
+            self.assertRegex(
+                template,
+                rf"(?m)^<!-- conditional:[^\n]*-->\n## {heading}$",
+            )
+        for pattern in (
+            r"_Status:\s*(?:pending|approved)",
+        ):
+            self.assertNotRegex(template, pattern)
+        self.assertRegex(
+            template,
+            r"<!-- conditional:[^\n]*-->\n## Traceability rationale",
+        )
+        self.assertRegex(
+            template,
+            r"<!-- conditional:[^\n]*-->\n## Proportionality rationale",
+        )
+        self.assertRegex(template, r"(?m)^### S-\d{2}: \S.*$")
+
+        writer = (ROOT / "skills/product0/references/writing-brief.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertRegex(writer, r"At least\s+two slices are required")
+        self.assertIn("empty rationale heading never satisfies", writer)
+
     def test_secondary_lenses_are_substantive(self) -> None:
         lens_names = (
             "integration",
