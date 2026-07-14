@@ -2,6 +2,11 @@
   "skill_name": "product0-using-brief",
   "evals": [
     {
+      "id": "adaptive-brief-traceability",
+      "prompt": "Start technical design from this handoff-ready marketing brief without requirement IDs.",
+      "expected_output": "The developer bridge accepts the brief, traces design to named decisions and section headings, and does not invent requirement IDs."
+    },
+    {
       "id": "provenance-aware-acknowledgment",
       "prompt": "Begin technical brainstorming from a handoff-ready brief containing fixed decisions, Product0 recommendations, and working assumptions.",
       "expected_output": "The acknowledgment keeps the categories separate. Fixed decisions are preserved, recommendations may be challenged with evidence, and assumptions are not treated as facts."

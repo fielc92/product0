@@ -54,6 +54,9 @@ Before technical exploration, present:
 ### Non-goals
 - <explicit exclusions>
 
+### Evidence and provenance
+- <repository evidence, user-confirmed decisions, recommendations, and assumptions>
+
 ### Technical brainstorming objective
 <One sentence describing the code problem to solve>
 
@@ -62,6 +65,8 @@ Before technical exploration, present:
 ```
 
 This is not a request to reapprove the product.
+
+Use stable requirement IDs when present. When requirement IDs are absent, trace the technical design to named decisions and section headings. A concise marketing brief without requirement IDs is valid.
 
 ## Technical brainstorming focus
 
@@ -91,6 +96,8 @@ Provide:
 - working assumptions and open risks;
 - non-goals;
 - technical brainstorming objective;
+- directions for technical brainstorming;
+- evidence and provenance;
 - evaluation criteria or success guardrails.
 
 If no brainstorming skill exists, run an equivalent design-first conversation. Do not implement until the technical design is approved.
@@ -101,7 +108,7 @@ When codebase evidence exposes a contradiction, infeasible fixed decision, or mi
 
 1. stop technical design;
 2. do not invent the answer;
-3. create `docs/product0/decisions/YYYY-MM-DD-<slug>-product-decision-request.md` from `assets/product-decision-request-template.md`;
+3. create `docs/product0/decisions/YYYY-MM-DD-<slug>-product-decision-request.md` from `assets/product-decision-request-template.md`, naming the contradictory decision or brief section;
 4. update the brief to `status: needs-product-decision`;
 5. explain the evidence and recommended product options;
 6. stop until Product0 returns the brief to `handoff-ready`.

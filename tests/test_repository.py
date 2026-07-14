@@ -118,6 +118,18 @@ class Product0RepositoryTest(unittest.TestCase):
             self.assertIn("Load \u0060product0\u0060", text)
             self.assertLessEqual(len(text.split()), 140)
 
+    def test_using_brief_allows_named_traceability(self) -> None:
+        text = (ROOT / "skills/product0-using-brief/SKILL.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn(
+            "When requirement IDs are absent, trace the technical design to named decisions and section headings.",
+            text,
+        )
+        for sentence in re.findall(r"[^.]*requirement IDs[^.]*\.", text, re.I):
+            if re.search(r"must\s+(?:preserve|trace|use)", sentence, re.I):
+                self.assertRegex(sentence, r"when present|if present")
+
     def test_marketing_surface_contract_is_strategic(self) -> None:
         text = (self.LENSES_ROOT / "marketing-surface.md").read_text(encoding="utf-8")
         markers = (
