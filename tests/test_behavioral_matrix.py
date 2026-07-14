@@ -14,6 +14,12 @@ SPEC.loader.exec_module(matrix)
 
 
 class BehavioralMatrixTest(unittest.TestCase):
+    def test_checked_in_fixture_has_product_context_and_no_landing_page(self) -> None:
+        fixture = ROOT / "tests/behavioral/fixtures/ikano-pay"
+        self.assertIn("B2B", (fixture / "README.md").read_text(encoding="utf-8"))
+        self.assertTrue((fixture / "app/dashboard/page.tsx").is_file())
+        self.assertFalse((fixture / "docs/product0/briefs").exists())
+
     def test_fixture_workspace_is_copied_and_brief_state_is_checked_per_turn(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             fixture = Path(directory) / "fixture"
