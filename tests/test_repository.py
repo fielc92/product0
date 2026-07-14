@@ -131,6 +131,13 @@ class Product0RepositoryTest(unittest.TestCase):
         )
         self._assert_deep_lens_contract(text, markers)
 
+    def test_decision_packet_exception_requires_documented_blocker(self) -> None:
+        text = (
+            ROOT / "skills/product0/references/shaping-direction.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("unless a genuine blocker is\ndocumented", text)
+        self.assertIn("**Open risk** provenance entry", text)
+
     def test_secondary_lenses_are_substantive(self) -> None:
         lens_names = (
             "integration",
@@ -171,14 +178,20 @@ class Product0RepositoryTest(unittest.TestCase):
 
     def _assert_deep_lens_contract(self, text: str, markers: tuple[str, ...]) -> None:
         for marker in markers:
-            self.assertIn(marker, text)
-        for obligation in (
-            "Repository evidence to inspect",
-            "Product0 recommendation",
-            "Blocking product decision",
-            "Reserved for technical brainstorming",
-        ):
-            self.assertIn(obligation, text)
+            section = re.search(
+                rf"^## {re.escape(marker)}\n(?P<body>.*?)(?=^## |\Z)",
+                text,
+                flags=re.MULTILINE | re.DOTALL,
+            )
+            self.assertIsNotNone(section, f"missing marker section: {marker}")
+            assert section is not None
+            for obligation in (
+                "Repository evidence to inspect",
+                "Product0 recommendation",
+                "Blocking product decision",
+                "Reserved for technical brainstorming",
+            ):
+                self.assertIn(obligation, section.group("body"), marker)
         self.assertIn("Direction approval is prohibited", text)
 
     def _prose_word_count(self, text: str) -> int:

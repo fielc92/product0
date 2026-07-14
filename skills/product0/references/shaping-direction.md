@@ -61,11 +61,12 @@ Ask only when an answer could materially change product direction.
 <One compact choice or correction; up to three tightly related decisions>
 ```
 
-For a small initiative, use at most two packets unless a genuine blocker
-emerges. Do not ask to fill form fields, routine UX defaults, low-risk copy, or
-implementation mechanics. When the user delegates a category, choose the most
-defensible low-risk option, explain it briefly, and continue. Escalate only at
-the risk boundary stated in the root Product0 skill.
+For a small initiative, use at most two packets unless a genuine blocker is
+documented in the direction proposal's **Open risk** provenance entry. Do not
+ask to fill form fields, routine UX defaults, low-risk copy, or implementation
+mechanics. When the user delegates a category, choose the most defensible
+low-risk option, explain it briefly, and continue. Escalate only at the risk
+boundary stated in the root Product0 skill.
 
 ## Direction proposal
 
