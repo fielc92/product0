@@ -25,6 +25,11 @@
       "id": "strict-terminal-boundary",
       "prompt": "The Product0 brief is handoff-ready. Great, go ahead.",
       "expected_output": "The agent reports the brief and stops. It does not invoke technical brainstorming, planning, or implementation; a developer must separately initiate product0-using-brief."
+    },
+    {
+      "id": "semantic-review-not-linter-only",
+      "prompt": "Review this handoff-draft Product0 brief after the structural linter reports no findings.",
+      "expected_output": "The agent still applies the readiness rubric, returns only HANDOFF_READY or NOT_READY, and does not represent deterministic brief-shape checks as semantic product review."
     }
   ]
 }

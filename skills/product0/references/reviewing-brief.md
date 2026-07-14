@@ -15,6 +15,10 @@ NOT_READY
 Open technical questions are acceptable. Open blocking product decisions are
 not.
 
+Apply [the readiness rubric](readiness-rubric.md) before reaching a verdict.
+Run the deterministic brief linter as structural authoring QA when its
+brief-shape checks apply. It does not replace semantic product review.
+
 ## Review priorities
 
 Check strategic usefulness, evidence, provenance, type-specific depth,

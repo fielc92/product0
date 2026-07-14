@@ -181,6 +181,28 @@ class Product0RepositoryTest(unittest.TestCase):
         self.assertRegex(writer, r"At least\s+two slices are required")
         self.assertIn("empty rationale heading never satisfies", writer)
 
+    def test_review_rubric_contains_slop_rules(self) -> None:
+        rubric = (
+            ROOT / "skills/product0/references/readiness-rubric.md"
+        ).read_text(encoding="utf-8")
+        for rule_id in (
+            "SL01_REPOSITORY_EVIDENCE_MISSING",
+            "SL02_ASSUMPTION_PROMOTED_TO_FACT",
+            "SL03_DECISION_REPEATED_ACROSS_SECTIONS",
+            "SL04_ONE_ITEM_PRODUCT_SLICE",
+            "SL05_IRRELEVANT_TECHNICAL_QUESTION",
+            "SL06_ROUTINE_UX_DOMINATES_DIRECTION",
+            "SL07_DISPROPORTIONATE_LENGTH",
+            "SL08_BUSINESS_CONTEXT_STILL_MISSING",
+            "MSR01_MESSAGE_HIERARCHY_MISSING",
+            "MSR02_PAGE_NARRATIVE_MISSING",
+            "MSR03_VISUAL_DIRECTION_MISSING",
+            "MSR04_PROOF_OR_TRUST_MISSING",
+            "MSR05_OBJECTION_HANDLING_MISSING",
+            "MSR06_CONVERSION_STRATEGY_MISSING",
+        ):
+            self.assertIn(rule_id, rubric)
+
     def test_secondary_lenses_are_substantive(self) -> None:
         lens_names = (
             "integration",
