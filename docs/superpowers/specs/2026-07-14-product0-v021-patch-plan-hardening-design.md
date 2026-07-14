@@ -62,7 +62,7 @@ The other five lenses are `integration`, `pricing-packaging`, `internal-operatio
 
 - the file exists and contains a unique lens identifier;
 - it defines evidence to inspect, recommendations to make, blocking product decisions, and implementation details that must not become interview questions;
-- it meets a modest substantive-content threshold;
+- after frontmatter, headings, marker lines, and fenced examples are removed, it contains at least 120 prose words;
 - it contains no `TBD`, `TODO`, copied marketing markers, or other placeholder content.
 
 This weighting reflects the expected primary use: feature definition before developers begin technical brainstorming and implementation planning.
@@ -150,10 +150,11 @@ Raw results are local and disposable. They are never committed.
 
 Before promoting an artifact into the tracked directory, the runner must:
 
-- redact recognized credential and token patterns;
-- exclude environment-variable values and authentication output;
-- reject content matching configured secret patterns;
-- enforce per-file and total-record size limits;
+- redact assignments and JSON/YAML fields whose case-insensitive names end in `_TOKEN`, `_API_KEY`, `_SECRET`, `_PASSWORD`, or `_CREDENTIAL`;
+- redact bearer tokens and private-key blocks;
+- exclude the values of matching process-environment variables and authentication output;
+- reject tracked output that still contains any configured fake-secret sentinel used by the sanitization tests;
+- enforce a 256 KiB limit for each tracked text artifact and a 1 MiB limit for each complete six-run release-record set;
 - record whether sanitization changed the source;
 - fail closed when it cannot establish that an artifact is safe.
 
